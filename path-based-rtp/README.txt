@@ -1,11 +1,6 @@
-Apache Sling Webloader Sample Service UI
+Apache Sling Samples Path Based RTP
 
----------------------------------------
-Sling Webloader sample - user interface
----------------------------------------
-After loading the sibling "webloader.service" bundle and this bundle,
-http://localhost:8888/bin/sling/webloader.html should display the "Sling
-Webloader" page, that gives access to the Webloader service. 
+WE NEED A LOT MORE HERE!!!!!!!!!!!!!!!!!!
 
 
 Disclaimer
@@ -37,6 +32,7 @@ Subversion (http://subversion.tigris.org/) source repository of
 the Apache Software Foundation. If you have Subversion installed,
 you can checkout the latest source using the following command:
 
-    svn checkout http://svn.apache.org/repos/asf/incubator/sling/trunk/samples/webloader/ui
+    svn checkout http://svn.apache.org/repos/asf/incubator/sling/trunk/samples/path-based-rtp
 
 See the Subversion documentation for other source control features.
+
