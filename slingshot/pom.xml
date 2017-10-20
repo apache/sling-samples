@@ -40,9 +40,9 @@
     </properties>
     
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/sling/trunk/samples/slingshot</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/sling/trunk/samples/slingshot</developerConnection>
-        <url>http://svn.apache.org/viewvc/sling/trunk/samples/slingshot</url>
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</conncetion>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</developerConnection>
+        <url>https://gitbox.apache.org/repos/asf?p=sling-samples.git</url>
     </scm>
 
     <build>

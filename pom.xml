@@ -50,13 +50,9 @@
 
 
     <scm>
-        <connection>
-            scm:svn:http://svn.apache.org/repos/asf/sling/trunk/samples
-        </connection>
-        <developerConnection>
-            scm:svn:https://svn.apache.org/repos/asf/sling/trunk/samples
-        </developerConnection>
-        <url>http://svn.apache.org/viewvc/sling/trunk/samples</url>
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</conncetion>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</developerConnection>
+        <url>https://gitbox.apache.org/repos/asf?p=sling-samples.git</url>
     </scm>
 
 

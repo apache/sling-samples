@@ -76,9 +76,9 @@
     </properties>
     
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/sling/trunk/testing/samples/bundle-with-tests</connection>
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</conncetion>
         <developerConnection> scm:svn:https://svn.apache.org/repos/asf/sling/trunk/testing/samples/bundle-with-tests</developerConnection>
-        <url>http://svn.apache.org/viewvc/sling/trunk/testing/samples/bundle-with-tests</url>
+        <url>https://gitbox.apache.org/repos/asf?p=sling-samples.git</url>
     </scm>
 
     <build>
