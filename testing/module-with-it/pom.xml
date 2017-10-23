@@ -45,7 +45,7 @@
     </properties>
 
     <scm>
-        <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</conncetion>
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</connection>
         <developerConnection> scm:svn:https://svn.apache.org/repos/asf/sling/trunk/testing/samples/module-with-it</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=sling-samples.git</url>
     </scm>
