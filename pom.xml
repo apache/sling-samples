@@ -58,7 +58,6 @@
 
     <!-- List modules to be included in the build here ! -->
     <modules>
-          <module>accessmanager-ui</module>
           <module>custom-login-form</module>
           <module>espblog</module>
           <module>fling</module>
@@ -71,8 +70,5 @@
           <module>slingshot</module>
           <module>testing/bundle-with-it</module>
           <module>testing/module-with-it</module>
-          <module>usermanager-ui</module>
-          <module>webloader/service</module>
-          <module>webloader/ui</module>
   </modules>
 </project>
