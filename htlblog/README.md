@@ -11,13 +11,13 @@ This sample is designed as an introduction to Sling and HTL.
 
 ## Requirements
 * [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-* [Sling 8](http://sling.apache.org/downloads.cgi)
+* [Sling 9](http://sling.apache.org/downloads.cgi)
 * [Maven 3+](http://maven.apache.org/download.cgi)
 
 ## Installation
 ### 1. Run Sling
 
-    java -jar org.apache.sling.launchpad-8.jar
+    java -jar org.apache.sling.launchpad-9.jar
 
 ### 2. Install HTLBlog
 
@@ -25,7 +25,7 @@ This sample is designed as an introduction to Sling and HTL.
 
 ### 3. Explore
 
-    http://localhost:8080/content/htlblog.html
+    http://localhost:8080/content/htlblog/posts.html
 
 ## Parts of the Application
 ### Java
@@ -50,9 +50,8 @@ HTL Blog uses Sling Models extensively. You can read about them [here](https://s
   * Mostly Bootstrap and some basic custom styles.
 
 ### Content
-The content is built using a single JSON file called `htlblog.json`. It maps to the following nodes:
+The content is built using a two JSON files under `/content/htlblog`. They map to the following nodes:
 
-* `/content/htlblog` - Our homepage. Currently lists our posts.
 * `/content/htlblog/admin` - Our admin home. Used to list our posts for editing or deleting.
 * `/content/htlblog/admin/edit` - Our edit page. Use to create, or if a post path is supplied, it will edit an existing post.
 * `/content/htlblog/posts` - Another post list, but also used as the parent of our posts.
