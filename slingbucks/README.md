@@ -60,9 +60,9 @@ To change the coffee options, you can play with the nodes under
 /content/slingbucks/readonly/options/fields, the structure should be
 self-explanatory.
 
-The Sling explorer at
+The Composum browser at
 
-  http://localhost:8080/.explorer.html
+  http://localhost:8080/bin/browser.html
   
 can be used to modify those nodes, besides the usual POST requests that the
 SlingPostServlet handles.   
