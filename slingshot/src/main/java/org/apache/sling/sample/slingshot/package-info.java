@@ -16,5 +16,5 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-@org.osgi.annotation.versioning.Version("1.0")
+@org.osgi.annotation.versioning.Version("1.0.1")
 package org.apache.sling.sample.slingshot;

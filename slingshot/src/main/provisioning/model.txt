@@ -30,21 +30,20 @@
     create service user slingshot-service
     create user slingshot1 with password slingshot1
     create user slingshot2 with password slingshot2
-    
-    create path (sling:Folder) /slingshot
-    create path (sling:Folder) /slingshot/users
-    create path (sling:Folder) /slingshot/users/slingshot1
-    create path (sling:Folder) /slingshot/users/slingshot2
+
+    create path (sling:Folder) /content/slingshot
+    create path (sling:Folder) /content/slingshot/users
+    create path (sling:Folder) /content/slingshot/users/slingshot1
+    create path (sling:Folder) /content/slingshot/users/slingshot2
 
     set ACL for slingshot-service
-        allow   jcr:read,rep:write    on /slingshot
+        allow   jcr:read,rep:write    on /content/slingshot
     end
 
     set ACL for slingshot1
-        allow   jcr:read,rep:write    on /slingshot/users/slingshot1
+        allow   jcr:read,rep:write    on /content/slingshot/users/slingshot1
     end
 
     set ACL for slingshot2
-        allow   jcr:read,rep:write    on /slingshot/users/slingshot2
+        allow   jcr:read,rep:write    on /content/slingshot/users/slingshot2
     end
-    

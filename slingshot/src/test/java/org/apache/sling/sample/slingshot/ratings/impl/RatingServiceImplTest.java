@@ -40,7 +40,7 @@ public class RatingServiceImplTest {
         Resource resource = context.resourceResolver().getResource(SlingshotConstants.APP_ROOT_PATH+"/users/admin/hobby");
 
         String ratingsResourcePath = service.getRatingsResourcePath(resource);
-        assertThat(ratingsResourcePath, equalTo("/slingshot/users/admin/ugc/ratings/hobby"));
+        assertThat(ratingsResourcePath, equalTo("/content/slingshot/users/admin/ugc/ratings/hobby"));
     }
 
     @Test

@@ -39,7 +39,7 @@ public class SlingshotUtilTest {
     @Test
     public void getUserId_deepPath() {
 
-        Resource resource = context.resourceResolver().getResource("/slingshot/users/admin/hobby");
+        Resource resource = context.resourceResolver().getResource("/content/slingshot/users/admin/hobby");
 
         assertThat(SlingshotUtil.getUserId(resource), equalTo("admin"));
     }
@@ -47,7 +47,7 @@ public class SlingshotUtilTest {
     @Test
     public void getUserId_exactPath() {
 
-        Resource resource = context.resourceResolver().getResource("/slingshot/users/admin");
+        Resource resource = context.resourceResolver().getResource("/content/slingshot/users/admin");
 
         assertThat(SlingshotUtil.getUserId(resource), equalTo("admin"));
     }
@@ -55,7 +55,7 @@ public class SlingshotUtilTest {
     @Test
     public void getUserId_noMatch() {
 
-        Resource resource = context.resourceResolver().getResource("/slingshot/users");
+        Resource resource = context.resourceResolver().getResource("/content/slingshot/users");
 
         assertThat(SlingshotUtil.getUserId(resource), nullValue());
     }
@@ -63,7 +63,7 @@ public class SlingshotUtilTest {
     @Test
     public void getContentPath_match() {
 
-        Resource resource = context.resourceResolver().getResource("/slingshot/users/admin/hobby");
+        Resource resource = context.resourceResolver().getResource("/content/slingshot/users/admin/hobby");
 
         assertThat(SlingshotUtil.getContentPath(resource), equalTo("/hobby"));
     }
@@ -71,7 +71,7 @@ public class SlingshotUtilTest {
     @Test
     public void getContentPath_noMatch() {
 
-        Resource resource = context.resourceResolver().getResource("/slingshot/users/admin");
+        Resource resource = context.resourceResolver().getResource("/content/slingshot/users/admin");
 
         assertThat(SlingshotUtil.getContentPath(resource), nullValue());
     }

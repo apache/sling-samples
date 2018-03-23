@@ -11,17 +11,17 @@
       "ugc": {
         "jcr:primaryType": "sling:Folder",
         "rating": {
-          "jcr:primaryType": "nt:unstructured",
+          "jcr:primaryType": "nt:unstructured"
         }
       }
     },
     "slingshot1": {
       "jcr:primaryType": "nt:unstructured",
-      "sling:resourceType": "slingshot/User",
+      "sling:resourceType": "slingshot/User"
     },
     "slingshot2": {
       "jcr:primaryType": "nt:unstructured",
-      "sling:resourceType": "slingshot/User",
+      "sling:resourceType": "slingshot/User"
     }
   }
 }

@@ -68,7 +68,7 @@
                     <instructions>
                         <!-- initial content to be loaded on bundle installation -->
                         <Sling-Initial-Content>
-                            SLING-INF/content/slingshot;overwrite:=true;path:=/slingshot;maven:mount:=false,
+                            SLING-INF/content/slingshot;overwrite:=true;path:=/content/slingshot;maven:mount:=false,
                             SLING-INF/content/libs/slingshot;overwrite:=true;path:=/libs/slingshot;maven:mount:=true
                         </Sling-Initial-Content>
                     </instructions>

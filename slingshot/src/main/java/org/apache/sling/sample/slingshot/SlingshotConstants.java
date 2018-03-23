@@ -20,7 +20,7 @@ package org.apache.sling.sample.slingshot;
 public abstract class SlingshotConstants {
 
     /** This is the resource path for the root of our application. */
-    public static final String APP_ROOT_PATH = "/slingshot";
+    public static final String APP_ROOT_PATH = "/content/slingshot";
 
     public static final String PROPERTY_TITLE = "title";
 
