@@ -45,7 +45,6 @@ import org.apache.sling.commons.messaging.MessageService;
 import org.apache.sling.commons.messaging.Result;
 import org.apache.sling.samples.fling.form.Form;
 import org.apache.sling.samples.fling.form.FormFactory;
-import org.apache.sling.scripting.thymeleaf.DefaultSlingContext;
 import org.apache.sling.validation.ValidationResult;
 import org.apache.sling.validation.ValidationService;
 import org.apache.sling.validation.model.ValidationModel;
@@ -57,6 +56,7 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thymeleaf.ITemplateEngine;
+import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
 
 @Component(
@@ -149,7 +149,7 @@ public class FormServlet extends SlingAllMethodsServlet {
 
         final String message;
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            final IContext context = new DefaultSlingContext(resourceResolver, Locale.ENGLISH, variables);
+            final IContext context = new Context(Locale.ENGLISH, variables);
             logger.debug("rendering message template '{}' with variables: {}", template, variables);
             message = templateEngine.process(template, context);
         } catch (Exception e) { // TODO
