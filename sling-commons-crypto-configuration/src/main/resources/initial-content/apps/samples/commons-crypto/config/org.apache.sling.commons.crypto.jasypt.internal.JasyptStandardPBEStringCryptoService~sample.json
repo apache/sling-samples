@@ -1,0 +1,5 @@
+{
+  "jcr:primaryType": "sling:OsgiConfig",
+  "names": ["sample"],
+  "algorithm": "PBEWITHHMACSHA512ANDAES_256"
+}
