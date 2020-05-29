@@ -60,7 +60,6 @@
     <modules>
           <module>custom-login-form</module>
           <module>espblog</module>
-          <module>fling</module>
           <module>htlblog</module>
           <module>javashell</module>
           <module>mail-archive</module>
@@ -70,5 +69,8 @@
           <module>slingshot</module>
           <module>testing/bundle-with-it</module>
           <module>testing/module-with-it</module>
+          <!-- build fails
+          <module>fling</module>
+          -->
   </modules>
 </project>
