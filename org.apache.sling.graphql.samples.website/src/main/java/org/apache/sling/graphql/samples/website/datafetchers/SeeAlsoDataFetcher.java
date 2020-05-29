@@ -47,7 +47,7 @@ class SeeAlsoDataFetcher implements DataFetcher<Object> {
      *  we can use the full path + title to render links.
      */
     private static Map<String, Object> toArticleRef(ResourceResolver resolver, String nodeName) {
-        final String jcrQuery = "/jcr:root/content/articles//" + nodeName;
+        final String jcrQuery = String.format("/jcr:root/content/articles//*[@filename='%s']", nodeName);
         final Iterator<Resource> it = resolver.findResources(jcrQuery, "xpath");
 
         // We want exactly one result

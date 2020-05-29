@@ -1,0 +1,9 @@
+{
+	"jcr:primaryType": "oak:QueryIndexDefinition",
+	"jcr:name:propertyNames": [
+		"filename"
+	],
+	"type": "property",
+	"reindex": false,
+	"reindexCount": 1
+}
