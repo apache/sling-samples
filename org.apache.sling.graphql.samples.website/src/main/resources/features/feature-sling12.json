@@ -1,7 +1,7 @@
 {
   "id":"org.apache.sling:org.apache.sling.kickstart.conversion:slingosgifeature:sling12:0.0.1-SNAPSHOT",
   "title":"Sling 12 Feature Model",
-  "description":"Complete Sling 12 Feature Model - copied from the kickstart project",
+  "description":"Sling 12 Feature Model - copied from the kickstart project and adapted for this sample",
   "vendor":"The Apache Software Foundation",
   "license":"Apache License, Version 2.0",
   "variables":{
@@ -108,11 +108,6 @@
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:boot:0.0.1-SNAPSHOT"
     },
     {
-      "id":"org.apache.sling:org.apache.sling.installer.provider.file:1.2.2",
-      "start-order":"1",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:boot:0.0.1-SNAPSHOT"
-    },
-    {
       "id":"org.apache.sling:org.apache.sling.javax.activation:0.1.0",
       "start-order":"1",
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:boot:0.0.1-SNAPSHOT"
@@ -188,32 +183,7 @@
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:composum_composum-nodes:0.0.1-SNAPSHOT"
     },
     {
-      "id":"org.apache.felix:org.apache.felix.healthcheck.api:2.0.2",
-      "start-order":"5",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:healthcheck:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.felix:org.apache.felix.healthcheck.core:2.0.6",
-      "start-order":"5",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:healthcheck:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.felix:org.apache.felix.healthcheck.generalchecks:2.0.4",
-      "start-order":"5",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:healthcheck:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.felix:org.apache.felix.healthcheck.webconsoleplugin:2.0.0",
-      "start-order":"5",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:healthcheck:0.0.1-SNAPSHOT"
-    },
-    {
       "id":"org.apache.sling:org.apache.sling.hc.api:1.0.4",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:healthcheck:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.hc.support:1.0.6",
       "start-order":"20",
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:healthcheck:0.0.1-SNAPSHOT"
     },
@@ -369,41 +339,6 @@
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:scripting_sling:0.0.1-SNAPSHOT"
     },
     {
-      "id":"org.apache.sling:org.apache.sling.scripting.sightly.compiler.java:1.1.4-1.4.0",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:scripting_sling:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.scripting.sightly.compiler:1.2.4-1.4.0",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:scripting_sling:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.scripting.sightly.js.provider:1.1.0",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:scripting_sling:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.scripting.sightly.models.provider:1.0.10",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:scripting_sling:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.scripting.sightly.repl:1.0.6",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:scripting_sling:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.scripting.sightly.runtime:1.2.0-1.4.0",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:scripting_sling:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.scripting.sightly:1.3.2-1.4.0",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:scripting_sling:0.0.1-SNAPSHOT"
-    },
-    {
       "id":"org.apache.sling:org.apache.sling.caconfig.api:1.2.0",
       "start-order":"20",
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling-caconfig:0.0.1-SNAPSHOT"
@@ -467,21 +402,6 @@
       "id":"com.fasterxml.jackson.core:jackson-databind:2.9.9",
       "start-order":"20",
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling-models-jacksonexporter_models-jacksonexporter:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.models.jacksonexporter:1.0.8",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling-models-jacksonexporter_models-jacksonexporter:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.validation.api:1.0.0",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling-validation:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.validation.core:1.0.4",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling-validation:0.0.1-SNAPSHOT"
     },
     {
       "id":"commons-codec:commons-codec:1.14",
@@ -579,11 +499,6 @@
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling:0.0.1-SNAPSHOT"
     },
     {
-      "id":"org.apache.sling:org.apache.sling.fsresource:2.1.16",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling:0.0.1-SNAPSHOT"
-    },
-    {
       "id":"org.apache.sling:org.apache.sling.i18n:2.5.14",
       "start-order":"20",
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling:0.0.1-SNAPSHOT"
@@ -615,16 +530,6 @@
     },
     {
       "id":"org.apache.sling:org.apache.sling.jcr.resource:3.0.20",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.models.api:1.3.8",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling:0.0.1-SNAPSHOT"
-    },
-    {
-      "id":"org.apache.sling:org.apache.sling.models.impl:1.4.12",
       "start-order":"20",
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling:0.0.1-SNAPSHOT"
     },
@@ -909,11 +814,6 @@
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling:0.0.1-SNAPSHOT"
     },
     {
-      "id":"org.apache.sling:org.apache.sling.sample.slingshot:0.9.0",
-      "start-order":"20",
-      "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling_slingshot:0.0.1-SNAPSHOT"
-    },
-    {
       "id":"org.apache.felix:org.apache.felix.http.jetty:4.0.18",
       "run-modes":":standalone",
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:standalone:0.0.1-SNAPSHOT",
@@ -1185,11 +1085,6 @@
     "org.apache.sling.serviceusermapping.impl.ServiceUserMapperImpl.amended~xss":    {
       "user.mapping":[
         "org.apache.sling.xss=sling-xss"
-      ]
-    },
-    "org.apache.sling.serviceusermapping.impl.ServiceUserMapperImpl.amended~sling.slingshot":    {
-      "user.mapping":[
-        "org.apache.sling.sample.slingshot=slingshot-service"
       ]
     }
   },
