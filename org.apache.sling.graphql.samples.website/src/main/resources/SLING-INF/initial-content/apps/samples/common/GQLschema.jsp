@@ -24,6 +24,8 @@
 type Navigation {
   root: String
   sections: [Section]
+  previous: String
+  next: String
 }
 
 type Section { 

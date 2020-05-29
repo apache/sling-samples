@@ -21,11 +21,13 @@ package org.apache.sling.graphql.samples.website.datafetchers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.graphql.samples.website.models.SlingWrappers;
 
 import graphql.schema.DataFetcher;
@@ -38,6 +40,7 @@ class NavigationDataFetcher implements DataFetcher<Object> {
 
     public static final String NAME = "navigation";
     public static final String CONTENT_ROOT = "/content/articles";
+    public static final String ARTICLE_RESOURCE_SUPERTYPE = "samples/article";
 
     private final Resource resource;
 
@@ -55,11 +58,41 @@ class NavigationDataFetcher implements DataFetcher<Object> {
 
     }
 
+    String getNextOrPreviousPath(Resource r, String propertyName, String currentValue, boolean isNext) {
+        String result = null;
+        final String jcrQuery = String.format(
+            "/jcr:root/content/articles//*[%s %s '%s'] order by %s %s",
+            propertyName,
+            isNext ? ">" : "<",
+            currentValue,
+            propertyName,
+            isNext ? "ascending" : "descending"
+        );
+        final Iterator<Resource> it = r.getResourceResolver().findResources(jcrQuery, "xpath");
+        if(it.hasNext()) {
+            result = it.next().getPath();
+        }
+        return result;
+    }
+
+    /** If r is an article, add previous/next navigation based on article filenames */
+    private void maybeAddPrevNext(Map<String, Object> result, Resource r) {
+        final String propName = "filename";
+        if(ARTICLE_RESOURCE_SUPERTYPE.equals(r.getResourceSuperType())) {
+            final String filename = r.adaptTo(ValueMap.class).get(propName, String.class);
+            if(filename != null) {
+                result.put("previous", getNextOrPreviousPath(r, propName, filename, false));
+                result.put("next", getNextOrPreviousPath(r, propName, filename, true));
+            }
+        }
+    }
+
     @Override
-    public Object get(DataFetchingEnvironment environment) throws Exception {
+    public Object get(DataFetchingEnvironment env) throws Exception {
         final Map<String, Object> result = new HashMap<>();
         result.put("root", CONTENT_ROOT);
         result.put("sections", getSections());
+        maybeAddPrevNext(result, FetcherUtil.getSourceResource(env, resource));
         return result;
     }
 }

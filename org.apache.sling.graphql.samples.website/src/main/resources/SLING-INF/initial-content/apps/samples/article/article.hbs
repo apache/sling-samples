@@ -31,6 +31,13 @@
                 <a href="{{this.path}}.html">{{this.name}}</a>
               </span>
             {{/each}}
+            <br/>
+            {{#if data.navigation.previous}}
+              <a href="{{data.navigation.previous}}.html">Previous article</a>
+            {{/if}}
+            {{#if data.navigation.next}}
+            <a href="{{data.navigation.next}}.html">Next article</a>
+            {{/if}}
             <hr/>
         </div>
         
