@@ -1,0 +1,8 @@
+github:
+  description: "Apache Sling Samples"
+  homepage: "https://sling.apache.org/"
+  labels:
+    - sling
+    - java
+    - samples
+    - graphql
