@@ -31,18 +31,9 @@
     }
   },
   "repoinit:TEXT|true":[
-    "create path (sling:Folder) /content/articles",
-    "set properties on /content/articles",
-    "set sling:resourceType{String} to sling:redirect",
-    "set sling:target to /content/articles/music.html",
-    "end",
-    "",
-    "create path (nt:unstructured) /graphql",
-    "set ACL for everyone",
-    "allow   jcr:read on /graphql",
-    "end",
-    "set properties on /graphql",
-    "set sling:resourceType{String} to samples/servlet",
+    "create path /graphql",
+    "set ACL on /graphql",
+    "allow jcr:read for everyone",
     "end"
   ]
 }
