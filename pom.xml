@@ -59,11 +59,8 @@
     <!-- List modules to be included in the build here ! -->
     <modules>
           <module>custom-login-form</module>
-          <module>espblog</module>
           <module>htlblog</module>
-          <module>javashell</module>
           <module>mail-archive</module>
-          <module>path-based-rtp</module>
           <module>post-servlet-extensions</module>
           <module>slingbucks</module>
           <module>slingshot</module>
