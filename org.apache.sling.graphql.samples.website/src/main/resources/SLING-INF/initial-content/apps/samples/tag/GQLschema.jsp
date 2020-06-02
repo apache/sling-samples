@@ -19,6 +19,9 @@
 
 type Query {
   ## fetch:samples/tagQuery
+  #
+  # Find articles which have the current
+  # set of tags
   tagQuery: TagQuery
 
   <%@include file="../common/common-query-parts.jsp" %>

@@ -19,6 +19,8 @@
 
 type Query {
   ## fetch:samples/currentResource
+  #
+  # The current Article
   article : Article
 
   <%@include file="../common/common-query-parts.jsp" %>

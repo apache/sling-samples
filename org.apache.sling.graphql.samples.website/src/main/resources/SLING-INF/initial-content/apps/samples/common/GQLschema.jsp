@@ -21,34 +21,47 @@
 # It is included (using JSP includes for now) in
 # the resourceType-specific schemas
 
+# Website navigation  information
 type Navigation {
+  # The root path of our website
   root: String
+  # List of content sections
   sections: [Section]
+  # Previous article, if applicable
   previous: String
+  # Next article, if application
   next: String
 }
 
+# A content section with its name and path
 type Section { 
   name: String
   path: String
   
   ## fetch:samples/articlesBySection
+  #
+  # List of articles in this section
   articles: [Article]
 }
 
+# Articles are the core content of our website
+# Fields names are self-describing
 type Article {
   path: String
   title: String
   tags: [String]
   text: String
 
-  # seeAlso field needs enhancement
-  # to include full paths + titles
   ## fetch:samples/seeAlso
+  #
+  # List of "See Also" articles
   seeAlso: [Article]
 }
 
+# A query for articles which have specific tags
 type TagQuery {
+  # List of tags specified in the query
   query: [String]
+  # List of articles found
   articles : [Article]
 }

@@ -19,6 +19,8 @@
 
 type Query {
   ## fetch:samples/articlesWithText
+  #
+  # List of Articles which contain the supplied text
   article (withText : String) : [Article]
 }
 
