@@ -17,11 +17,11 @@
 * under the License.
 --%>
 
+<%@include file="../common/directives.jsp" %>
+
 type Query {
-  ## fetch:samples/articlesWithText
-  #
   # List of Articles which contain the supplied text
-  article (withText : String) : [Article]
+  article (withText : String) : [Article] @fetcher(name:"samples/articlesWithText")
 }
 
 <%@include file="/apps/samples/common/GQLschema.jsp" %>

@@ -17,13 +17,9 @@
 * under the License.
 --%>
 
-<%@include file="../common/directives.jsp" %>
-
-type Query {
-  # The current content section
-  section: Section @fetcher(name:"samples/currentResource")
-
-  <%@include file="../common/common-query-parts.jsp" %>
-}
-
-<%@include file="../common/GQLschema.jsp" %>
+# This directive maps fields to our Sling data fetchers
+directive @fetcher(
+    name : String,
+    options : String = "",
+    source : String = ""
+) on FIELD_DEFINITION

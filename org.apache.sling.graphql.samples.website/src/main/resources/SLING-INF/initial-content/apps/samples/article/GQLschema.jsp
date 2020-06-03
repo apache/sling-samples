@@ -17,11 +17,11 @@
 * under the License.
 --%>
 
+<%@include file="../common/directives.jsp" %>
+
 type Query {
-  ## fetch:samples/currentResource
-  #
   # The current Article
-  article : Article
+  article : Article @fetcher(name:"samples/currentResource")
 
   <%@include file="../common/common-query-parts.jsp" %>
 }

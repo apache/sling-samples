@@ -20,6 +20,9 @@
 # This is the common parts of our "samples" schemas
 # It is included (using JSP includes for now) in
 # the resourceType-specific schemas
+#
+# The directives.jsp schema fragment must be loaded
+# before this one.
 
 # Website navigation  information
 type Navigation {
@@ -38,10 +41,8 @@ type Section {
   name: String
   path: String
   
-  ## fetch:samples/articlesBySection
-  #
   # List of articles in this section
-  articles: [Article]
+  articles: [Article] @fetcher(name:"samples/articlesBySection")
 }
 
 # Articles are the core content of our website
@@ -52,10 +53,8 @@ type Article {
   tags: [String]
   text: String
 
-  ## fetch:samples/seeAlso
-  #
   # List of "See Also" articles
-  seeAlso: [Article]
+  seeAlso: [Article] @fetcher(name:"samples/seeAlso")
 }
 
 # A query for articles which have specific tags

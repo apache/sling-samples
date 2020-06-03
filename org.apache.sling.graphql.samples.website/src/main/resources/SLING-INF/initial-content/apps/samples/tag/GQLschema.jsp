@@ -17,12 +17,12 @@
 * under the License.
 --%>
 
+<%@include file="../common/directives.jsp" %>
+
 type Query {
-  ## fetch:samples/tagQuery
-  #
   # Find articles which have the current
   # set of tags
-  tagQuery: TagQuery
+  tagQuery: TagQuery @fetcher(name:"samples/tagQuery")
 
   <%@include file="../common/common-query-parts.jsp" %>
 }
