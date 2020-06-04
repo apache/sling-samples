@@ -54,6 +54,7 @@ type Article {
   title: String
   tags: [String]
   text: String
+  section: String
 
   # List of "See Also" articles
   seeAlso: [Article] @fetcher(name:"samples/seeAlso")

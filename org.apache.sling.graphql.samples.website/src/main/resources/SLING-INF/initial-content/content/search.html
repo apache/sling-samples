@@ -22,9 +22,23 @@
         ~ under the License.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/-->
 
+        <!--
+            Example (basic) single-page app to search for articles, gets its initial
+            content using a GraphQL query and manipulates it locally, to filter found
+            articles by content section.
+        -->
         <title>Search Articles</title>
         <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
+
+        <style type="text/css">
+            .activefalse {
+                text-decoration: line-through;
+            }
+            .sectionButton {
+                text-decoration: none;
+            }
+        </style>
 
         <script
             src="https://code.jquery.com/jquery-3.5.1.js"
@@ -41,13 +55,45 @@
         <script src="./js/graphql.js"></script>
 
         <script>
-            var templates = {
-                navigation: {},
-                results: {}
+            var templates = {};
+            var searchResult = {};
+            var sections = {};
+
+            // Filter articles locally based on selection content sections
+            // and render the result.
+            function renderArticles() {
+                var filtered = {
+                    info: searchResult.info,
+                    result: { article: []}
+                };
+                if(sections) {
+                    for(const article of searchResult.result.article) {
+                        if(sections[article.section].active) {
+                            filtered.result.article.push(article);
+                        }
+                    }
+                } else {
+                    filtered.result.article = searchResult.result.article;
+                }
+                $("#results").html(templates.results({data:filtered}));
             }
 
+            // Render the content sections names of the result set and setup
+            // their selection links
+            function renderSections() {
+                $("#sections").html(templates.sections({data:sections}));
+                $(".sectionButton").click(function() {
+                    const section = $(this).text();
+                    sections[section].active = !sections[section].active;
+                    renderSections();
+                    renderArticles();
+                    return false;
+                });
+            }
+
+            // GraphQL query and results rendering
             function queryAndRender(searchText) {
-                var query = `{
+                const query = `{
                     navigation {
                         search
                         sections {
@@ -58,27 +104,40 @@
                     article(withText: "${searchText}") {
                         path
                         title
-                        seeAlso {
-                        path
-                        title
-                        tags
-                        }
+                        section
                     }
                 }`;
-                console.log(`Querying:\n${query}`);
                 graphQL.query(query, { searchText: searchText}, function(data) {
+                    // Render navigation
                     $("#navigation").html(templates.navigation({navigation:data.result.navigation}));
-                    $("#results").html(templates.results({data:data}));
+
+                    // Setup section selection buttons
+                    sections = {};
+                    for(const article of data.result.article) {
+                        sections[article.section] = { name: article.section, active:true };
+                    }
+
+                    // Render articles
+                    searchResult = data;
+                    renderSections();
+                    renderArticles();
                 });
             }
 
+            // Initial setup
             $(document).ready(function() {
+                // Compile templates
                 templates.results = Handlebars.compile($("#resultsTemplate").html());
                 templates.navigation = Handlebars.compile($("#navigationTemplate").html());
+                templates.sections = Handlebars.compile($("#sectionsTemplate").html());
+
+                // Setup search form
                 $("#search").submit(function() {
                     queryAndRender($("#searchText").val());
                     return false;
                 });
+
+                // Init page state
                 $("#searchText").focus();
                 queryAndRender($("#searchText").val());
             });
@@ -93,9 +152,13 @@
         <hr/>
 
         <form id="search">
-            <input id="searchText" type="text" width="40"/>
+            <input id="searchText" type="text" width="40" value="virtual"/>
             <input type="submit" value="Search"/>
         </form>
+
+        <div>
+            <div id="sections"/>
+        </div>
 
         <div>
             <div id="results"/>
@@ -114,7 +177,11 @@
             </div>
             <div id="resultsTemplate">
                 {{#if data.result.article}}
-                    <h2>Found {{data.result.article.length}} articles containing "{{data.info.searchText}}"</h2>
+                    <h2>
+                        Found {{data.result.article.length}} articles
+                        containing "{{data.info.searchText}}"
+                        in the selected content sections
+                    </h2>
                     <ul>
                     {{#each data.result.article}}
                         <li class="articleLink">
@@ -125,6 +192,13 @@
                 {{else}}
                 <div class="message">No articles found.</div>
                 {{/if}}
+            </div>
+            <div id="sectionsTemplate">
+                {{#each data}}
+                    <span class="active{{this.active}}"><a href="unused" class="sectionButton">{{this.name}}</a></span>
+                {{/each}}
+                <em>&lt;-- Click to select/deselect content sections</em>
+                <hr/>
             </div>
         </div>
     </body>
