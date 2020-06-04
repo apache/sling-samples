@@ -41,10 +41,20 @@
         <script src="./js/graphql.js"></script>
 
         <script>
-            var template;
+            var templates = {
+                navigation: {},
+                results: {}
+            }
 
             function queryAndRender(searchText) {
                 var query = `{
+                    navigation {
+                        search
+                        sections {
+                            path
+                            name
+                        }
+                    }
                     article(withText: "${searchText}") {
                         path
                         title
@@ -57,20 +67,28 @@
                 }`;
                 console.log(`Querying:\n${query}`);
                 graphQL.query(query, { searchText: searchText}, function(data) {
-                    $("#results").html(template({data:data}));
+                    $("#navigation").html(templates.navigation({navigation:data.result.navigation}));
+                    $("#results").html(templates.results({data:data}));
                 });
             }
 
             $(document).ready(function() {
-                template = Handlebars.compile($("#template").html());
+                templates.results = Handlebars.compile($("#resultsTemplate").html());
+                templates.navigation = Handlebars.compile($("#navigationTemplate").html());
                 $("#search").submit(function() {
                     queryAndRender($("#searchText").val());
                     return false;
                 });
+                $("#searchText").focus();
+                queryAndRender($("#searchText").val());
             });
         </script>
     </head>
     <body>
+        <div>
+            <div id="navigation"/>
+        </div>
+
         <h1>Search in articles</h1>
         <hr/>
 
@@ -79,17 +97,35 @@
             <input type="submit" value="Search"/>
         </form>
 
-        <div id="results"/>
+        <div>
+            <div id="results"/>
+        </div>
 
-        <div id="template" style="display:none">
-            <h2>Found {{data.result.article.length}} articles containing "{{data.info.searchText}}"</h2>
-            <ul>
-            {{#each data.result.article}}
-                <li class="articleLink">
-                    <a href="{{this.path}}.html">{{this.title}}</a>
-                </li>
-            {{/each}}
-            </ul>
+        <div id="templates" style="display:none">
+            <div id="navigationTemplate">
+                {{#each navigation.sections}}
+                  <span class="section">
+                    <a href="{{this.path}}.html">{{this.name}}</a>
+                  </span>
+                {{/each}}
+                <br/>
+                <a href="{{navigation.search}}.html">Search</a>
+                <hr/>
+            </div>
+            <div id="resultsTemplate">
+                {{#if data.result.article}}
+                    <h2>Found {{data.result.article.length}} articles containing "{{data.info.searchText}}"</h2>
+                    <ul>
+                    {{#each data.result.article}}
+                        <li class="articleLink">
+                            <a href="{{this.path}}.html">{{this.title}}</a>
+                        </li>
+                    {{/each}}
+                    </ul>
+                {{else}}
+                <div class="message">No articles found.</div>
+                {{/if}}
+            </div>
         </div>
     </body>
 </html>
