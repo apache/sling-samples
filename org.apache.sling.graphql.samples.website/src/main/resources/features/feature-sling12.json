@@ -565,7 +565,7 @@
     },
     {
       "id":"org.apache.sling:org.apache.sling.starter.content:1.0.8",
-      "start-order":"20",
+      "start-order":"15",
       "feature-origins":"org.apache.sling:org.apache.sling.kickstart.conversion:slingfeature:sling:0.0.1-SNAPSHOT"
     },
     {

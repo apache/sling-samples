@@ -8,6 +8,7 @@
   "bundles":[
     {
       "id" : "org.apache.sling:org.apache.sling.graphql.core:0.0.1-SNAPSHOT",
+      "start-order":"20",
       "configurations" : {
         "org.apache.sling.graphql.core.GraphQLServlet~default" : {
           "sling.servlet.resourceTypes" : "samples/servlet",
