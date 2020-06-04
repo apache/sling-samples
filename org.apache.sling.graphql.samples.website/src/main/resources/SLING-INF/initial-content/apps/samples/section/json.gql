@@ -19,6 +19,7 @@
 { 
   navigation {
     root
+    search
     sections {
       path
       name

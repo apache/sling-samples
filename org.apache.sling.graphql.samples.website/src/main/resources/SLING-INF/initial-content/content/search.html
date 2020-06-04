@@ -33,25 +33,59 @@
         </script>
 
         <script
-            src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js">
+            src="https://cdn.jsdelivr.net/npm/handlebars@4.7.6/dist/handlebars.js"
+            integrity="sha256-ZafrO8ZXERYO794Tx1hPaAcdcXNZUNmXufXOSe0Hxj8="
+            crossorigin="anonymous">
         </script>
 
-        <script src="./search.js"></script>
+        <script src="./js/graphql.js"></script>
+
+        <script>
+            var template;
+
+            function queryAndRender(searchText) {
+                var query = `{
+                    article(withText: "${searchText}") {
+                        path
+                        title
+                        seeAlso {
+                        path
+                        title
+                        tags
+                        }
+                    }
+                }`;
+                console.log(`Querying:\n${query}`);
+                graphQL.query(query, { searchText: searchText}, function(data) {
+                    $("#results").html(template({data:data}));
+                });
+            }
+
+            $(document).ready(function() {
+                template = Handlebars.compile($("#template").html());
+                $("#search").submit(function() {
+                    queryAndRender($("#searchText").val());
+                    return false;
+                });
+            });
+        </script>
     </head>
     <body>
         <h1>Search in articles</h1>
         <hr/>
+
         <form id="search">
             <input id="searchText" type="text" width="40"/>
             <input type="submit" value="Search"/>
         </form>
+
         <div id="results"/>
 
         <div id="template" style="display:none">
-            <h2>Articles containing "{{data.query}}"</h2>
+            <h2>Found {{data.result.article.length}} articles containing "{{data.info.searchText}}"</h2>
             <ul>
             {{#each data.result.article}}
-                <li class="seeAlso">
+                <li class="articleLink">
                     <a href="{{this.path}}.html">{{this.title}}</a>
                 </li>
             {{/each}}

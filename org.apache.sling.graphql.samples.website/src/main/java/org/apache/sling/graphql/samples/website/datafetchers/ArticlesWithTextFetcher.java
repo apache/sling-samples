@@ -46,8 +46,8 @@ class ArticlesWithTextFetcher implements DataFetcher<Object> {
     public Object get(DataFetchingEnvironment environment) throws Exception {
         final String expectedText = environment.getArgument(P_WITH_TEXT);
         final String jcrQuery = String.format(
-            "/jcr:root/content/articles//*[jcr:contains(@text, '%s') or jcr:contains(@title, '%s')]",
-            expectedText, expectedText);
+            "/jcr:root%s//*[jcr:contains(@text, '%s') or jcr:contains(@title, '%s')]",
+            Constants.ARTICLES_ROOT, expectedText, expectedText);
 
         final List<Map<String, Object>> result = new ArrayList<>();
         final Iterator<Resource> it = resource.getResourceResolver().findResources(jcrQuery, "xpath");

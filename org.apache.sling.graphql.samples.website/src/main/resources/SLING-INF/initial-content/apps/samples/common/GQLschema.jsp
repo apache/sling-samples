@@ -34,6 +34,8 @@ type Navigation {
   previous: String
   # Next article, if application
   next: String
+  # Search page
+  search: String
 }
 
 # A content section with its name and path

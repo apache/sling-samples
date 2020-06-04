@@ -46,7 +46,7 @@ class TagQueryDataFetcher implements DataFetcher<Object> {
     static String jcrQuery(String ... tags) {
         // Build a query like
         //  /jcr:root/content/articles//*[@tags = "panel" and @tags = "card"]
-        final StringBuilder sb = new StringBuilder("/jcr:root/content/articles//*[");
+        final StringBuilder sb = new StringBuilder("/jcr:root" + Constants.ARTICLES_ROOT + "//*[");
         for(int i=0 ; i < tags.length; i++) {
             if(i > 0) {
                 sb.append(" and ");

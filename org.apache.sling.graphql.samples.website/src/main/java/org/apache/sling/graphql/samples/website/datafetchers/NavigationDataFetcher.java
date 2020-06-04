@@ -39,8 +39,6 @@ import graphql.schema.DataFetchingEnvironment;
 class NavigationDataFetcher implements DataFetcher<Object> {
 
     public static final String NAME = "navigation";
-    public static final String CONTENT_ROOT = "/content/articles";
-    public static final String ARTICLE_RESOURCE_SUPERTYPE = "samples/article";
 
     private final Resource resource;
 
@@ -50,7 +48,7 @@ class NavigationDataFetcher implements DataFetcher<Object> {
 
     private Object[] getSections() {
         final List<Map<String, Object>> result = new ArrayList<>();
-        final Resource root = resource.getResourceResolver().getResource(CONTENT_ROOT);
+        final Resource root = resource.getResourceResolver().getResource(Constants.ARTICLES_ROOT);
         final Iterable<Resource> it = () -> root.getResourceResolver().getChildren(root).iterator();
         StreamSupport.stream(it.spliterator(), false)
             .forEach(child -> result.add(SlingWrappers.resourceWrapper(child)));
@@ -61,7 +59,8 @@ class NavigationDataFetcher implements DataFetcher<Object> {
     String getNextOrPreviousPath(Resource r, String propertyName, String currentValue, boolean isNext) {
         String result = null;
         final String jcrQuery = String.format(
-            "/jcr:root/content/articles//*[%s %s '%s'] order by %s %s",
+            "/jcr:root%s//*[%s %s '%s'] order by %s %s",
+            Constants.ARTICLES_ROOT,
             propertyName,
             isNext ? ">" : "<",
             currentValue,
@@ -78,7 +77,7 @@ class NavigationDataFetcher implements DataFetcher<Object> {
     /** If r is an article, add previous/next navigation based on article filenames */
     private void maybeAddPrevNext(Map<String, Object> result, Resource r) {
         final String propName = "filename";
-        if(ARTICLE_RESOURCE_SUPERTYPE.equals(r.getResourceSuperType())) {
+        if(Constants.ARTICLE_RESOURCE_SUPERTYPE.equals(r.getResourceSuperType())) {
             final String filename = r.adaptTo(ValueMap.class).get(propName, String.class);
             if(filename != null) {
                 result.put("previous", getNextOrPreviousPath(r, propName, filename, false));
@@ -90,8 +89,9 @@ class NavigationDataFetcher implements DataFetcher<Object> {
     @Override
     public Object get(DataFetchingEnvironment env) throws Exception {
         final Map<String, Object> result = new HashMap<>();
-        result.put("root", CONTENT_ROOT);
+        result.put("root", Constants.ARTICLES_ROOT);
         result.put("sections", getSections());
+        result.put("search", Constants.SEARCH_PAGE_PATH);
         maybeAddPrevNext(result, FetcherUtil.getSourceResource(env, resource));
         return result;
     }

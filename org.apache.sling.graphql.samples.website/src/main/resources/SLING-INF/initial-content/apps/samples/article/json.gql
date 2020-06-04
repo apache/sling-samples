@@ -21,6 +21,7 @@
     root
     previous
     next
+    search
     sections {
       path
       name

@@ -46,8 +46,6 @@ class ArticlesBySectionFetcher implements DataFetcher<Object> {
         // TODO should paginate instead
         final int maxArticles = 42;
 
-        final Resource currentResource = FetcherUtil.getSourceResource(env, section);
-
         final List<Map<String, Object>> result = new ArrayList<>();
         final Iterable<Resource> it = () -> section.getResourceResolver().getChildren(section).iterator();
         StreamSupport.stream(it.spliterator(), false)
