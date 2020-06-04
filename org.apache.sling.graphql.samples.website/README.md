@@ -5,55 +5,73 @@ This is a work in progress demo of the [Sling GraphQL Core](https://github.com/a
 
 It demonstrates both server-side GraphQL queries, used for content aggregation, and the 
 more traditional client-side queries, using the same GraphQL schemas and data fetching
-Java components for both variants.
+Java components for both variants. Handlebars templates are used for rendering content,
+either on the server or client side depending on the website sections.
 
-Besides the page rendering code there's not much: GraphQL schema and query definitions and a few
-Java classes used for aggregating or enhancing content and for content queries.
+Besides the page rendering code there's not much: GraphQL schema and query definitions
+and a few Java classes used for aggregating or enhancing content and for content queries.
 
 For now there's no pagination of query results, just arbitrary limits on the number
 of results returned.
 
-## Demo Website using server-side GraphQL
-
 The entry point for the demo website (after starting this as described below) 
 is http://localhost:8080/content/articles 
+
+## GraphQL and Handlebars, on both the server and client sides
 
 The articles and navigation pages are rendered using server-side Handlebars templates,
 which retrieve the aggregated JSON content of the current page by making an internal request
 to the current path with a `.json` extension.
 
-That aggregated JSON content is retrieved using server-side GraphQL queries so that a single
+That aggregated JSON content is generated using server-side GraphQL queries so that a single
 request provides all the page content and navigation.
 
 Those `.json` URLs are also accessible from the outside if client-side rendering is preferred.
 
-As a next step, to demonstrate "universal querying and rendering" the plan is to implement
-a small single-page application for content browsing, using client-side GraphQL queries and
-client-side Handlebars templates.
+The search page at `/content/search.html` uses client-side GraphQL queries and client-side
+Handlebars rendering (along with JQuery for glue) to demonstrate using the same tools on the server
+or client side, with minimal differences between both modes.
 
-With this we'll get the best of both worlds: server-side queries and rendering for the article
-pages (so that they make sense for Web search engines for example) and client-side queries and
-rendering for the few single-page applications that our website needs. Using the same languages
-(GraphQL and Handlebars) in both cases, with a small amount of Java code to implement
-the content querying and aggregation code.
+With this we get the best of both worlds: server-side queries and rendering for the article
+pages, so that they make sense for Web search engines for example, and client-side queries and
+rendering for the more dynamic "search" single-page application example.
+
+Handlebars was selected for this example as it's easy to learn and easy to implement on both the
+server and client sides. As usual with Sling, everything is pluggable so it can be replaced with
+your favorite rendering engine if desired.
+
+A small amount of Java code is used to implement the content querying and aggregation extensions.
+Writing that code requires only minimal knowledge of Sling. So far that code only uses the
+Sling `Resource` and `ResourceResolver` APIs to collect and aggregate content.
+
+This sample currently also includes the `HandlebarsScriptEngine` implementation, used for
+server-side rendering. We might move it to its own Sling module later if there's interest, for now
+it implements just the minimum required for this sample.
 
 ## Client-side GraphQL queries
 
 Client-side queries work using an external GraphiQL client (or any suitable client) that
 talks to http://localhost:8080/graphql.json
 
-For now we have a single "article with text" query to demonstrate the concept, for example:
+Here's an example query:
 
     {
-      article(withText: "jacobi") {
-        path
-        title
-        tags
-        seeAlso {
-          title
-          path
+        navigation {
+            search
+            sections {
+                path
+                name
+            }
         }
-      }
+        article(withText: "virtual") {
+            path
+            title
+            seeAlso {
+            path
+            title
+            tags
+            }
+        }
     }
 
 Besides fixing the `DataFetcher`s to use the correct context Resource, setting this up
@@ -71,7 +89,7 @@ the server-side and client-side query variants.
 
 ## How to run this
 
-As this is early days, some assembly is required:
+This is early days, some assembly is required:
 
 * Build the [GraphQL Core](https://github.com/apache/sling-org-apache-sling-graphql-core/) module
 * Build the [Sling Kickstart](https://github.com/apache/sling-org-apache-sling-kickstart) module
@@ -88,19 +106,16 @@ And open the above mentioned start page.
 
 ## Under the hood
 
-The following explanations apply to the article and navigation pages. The (upcoming) single-page apps
-will use similar mechanisms client-side.
-
 The scripts and source code mentioned below are found in the source code and initial content of this
 demo module.
 
-The GraphQL core retrieves a schema for the current Sling Resource by making a request with 
-the `.GQLschema` extension. You can see the schemas by adding that extension to article and
-navigation pages. They are generated using the standard Sling request processing mechanism, so
-very flexible and resource-type specific if needed.
+For either server or client-side queries, the GraphQL core retrieves a schema for the current
+Sling Resource by making an internal request with the `.GQLschema` extension. You can see those
+schemas by adding that extension to the article and navigation pages. They are generated using the
+standard Sling request processing mechanism, so very flexible and resource-type specific if needed.
 
-The server-side GraphQL queries are defined in `json.gql` scripts for each resource type. Here's
-the current `article/json.gql` query as an example:
+The server-side GraphQL queries are defined in `json.gql` scripts for each resource type, and executed
+in the context of the current Sling Resource. Here's the current `article/json.gql` query as an example:
 
     { 
       navigation {
@@ -121,15 +136,20 @@ the current `article/json.gql` query as an example:
       }
     }
 
-Based on that script's name, according to the usual Sling conventions it is used by the Sling GraphQL
-ScriptEngine to execute the query and return a simple JSON document that provides everything needed
-to render the page in one request. You can see those JSON documents by adding a `.json` extension to
-article and navigation pages.
+Based on that script's name, according to the usual Sling conventions it is used by the Sling
+`GraphQLScriptEngine` to execute the query and return the JSON document that provides everything
+needed to render the page in one request. You can see those JSON documents by adding a `.json`
+extension to the article and navigation pages.
 
-This JSON document includes navigation information (the content sections for now) and processed content
-like the `seeAlso` links which are fleshed out by the `SeeAlsoDataFetcher` as the raw content doesn't 
-provide enough information to build meaningful links. Such `DataFetcher` are then active for both
+In our examples, this JSON document includes navigation information (paths to content sections,
+next/previous article etc.) and processed content like the `seeAlso` links. Those links are
+fleshed out by the `SeeAlsoDataFetcher` Java class, as the raw content doesn't provide enough
+information to render meaningful links. Such `DataFetcher` services are then active for both
 server-side and client-side GraphQL queries.
 
-For this demo, the `.rawjson` extension provides the default Sling JSON rendering, for comparison or
-troubleshooting purposes.
+The `search` single-page-app uses the same GraphQL queries, executed from the client side,
+along with client-side Handlebars rendering. See the `search.html` and `graphql.js` source
+files under `src/main/resources/SLING-INF/initial-content` for details.
+
+For this demo, the `.rawjson` extension is configured to provide the default Sling JSON
+rendering, for comparison or troubleshooting purposes.
