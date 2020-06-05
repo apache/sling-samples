@@ -19,25 +19,16 @@
 
 package org.apache.sling.graphql.samples.website.datafetchers;
 
-import org.apache.sling.api.resource.Resource;
+import org.apache.sling.graphql.api.SlingDataFetcher;
+import org.apache.sling.graphql.api.SlingDataFetcherEnvironment;
 import org.apache.sling.graphql.samples.website.models.SlingWrappers;
-
-import graphql.schema.DataFetcher;
-import graphql.schema.DataFetchingEnvironment;
+import org.osgi.service.component.annotations.Component;
 
 /** Convert the current SlingResource to a GraphQL-friendly Map */
-class CurrentResourceFetcher implements DataFetcher<Object> {
-
-    public static final String NAME = "currentResource";
-
-    private final Resource resource;
-
-    CurrentResourceFetcher(Resource r) {
-        this.resource = r;
-    }
-
+@Component(service = SlingDataFetcher.class, property = {"name=samples/currentResource"})
+public class CurrentResourceFetcher implements SlingDataFetcher<Object> {
     @Override
-    public Object get(DataFetchingEnvironment environment) throws Exception {
-        return SlingWrappers.resourceWrapper(resource);
+    public Object get(SlingDataFetcherEnvironment env) throws Exception {
+        return SlingWrappers.resourceWrapper(env.getCurrentResource());
     }
 }

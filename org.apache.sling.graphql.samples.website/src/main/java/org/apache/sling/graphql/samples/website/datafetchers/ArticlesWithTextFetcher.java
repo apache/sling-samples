@@ -25,36 +25,29 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.graphql.api.SlingDataFetcher;
+import org.apache.sling.graphql.api.SlingDataFetcherEnvironment;
 import org.apache.sling.graphql.samples.website.models.SlingWrappers;
-
-import graphql.schema.DataFetcher;
-import graphql.schema.DataFetchingEnvironment;
+import org.osgi.service.component.annotations.Component;
 
 /** Find articles which contain specific text */
-class ArticlesWithTextFetcher implements DataFetcher<Object> {
+@Component(service = SlingDataFetcher.class, property = {"name=samples/articlesWithText"})
+public class ArticlesWithTextFetcher implements SlingDataFetcher<Object> {
 
-    public static final String NAME = "articlesWithText";
     public static final String P_WITH_TEXT = "withText";
 
-    private final Resource resource;
-
-    ArticlesWithTextFetcher(Resource resource) {
-        this.resource = resource;
-    }
-
     @Override
-    public Object get(DataFetchingEnvironment environment) throws Exception {
-        final String expectedText = environment.getArgument(P_WITH_TEXT);
-        final String jcrQuery = String.format(
-            "/jcr:root%s//*[jcr:contains(@text, '%s') or jcr:contains(@title, '%s')]",
-            Constants.ARTICLES_ROOT, expectedText, expectedText);
+    public Object get(SlingDataFetcherEnvironment env) throws Exception {
+        final String expectedText = env.getArgument(P_WITH_TEXT);
+        final String jcrQuery = String.format("/jcr:root%s//*[jcr:contains(@text, '%s') or jcr:contains(@title, '%s')]",
+                Constants.ARTICLES_ROOT, expectedText, expectedText);
 
         final List<Map<String, Object>> result = new ArrayList<>();
-        final Iterator<Resource> it = resource.getResourceResolver().findResources(jcrQuery, "xpath");
+        final Iterator<Resource> it = env.getCurrentResource().getResourceResolver().findResources(jcrQuery, "xpath");
         // TODO should use pagination
         int counter = 451;
-        while(it.hasNext()) {
-            if(--counter <= 0) {
+        while (it.hasNext()) {
+            if (--counter <= 0) {
                 break;
             }
             result.add(SlingWrappers.resourceWrapper(it.next()));

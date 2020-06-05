@@ -27,28 +27,21 @@ import java.util.Map;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.graphql.api.SlingDataFetcher;
+import org.apache.sling.graphql.api.SlingDataFetcherEnvironment;
 import org.apache.sling.graphql.samples.website.models.SlingWrappers;
+import org.osgi.service.component.annotations.Component;
 
-import graphql.schema.DataFetcher;
-import graphql.schema.DataFetchingEnvironment;
+/** Retrieve articles which have a given tag or set of tags */
+@Component(service = SlingDataFetcher.class, property = {"name=samples/tagQuery"})
+public class TagQueryDataFetcher implements SlingDataFetcher<Object> {
 
-/** Retrieve articles which have a given tag or set of tags  */
-class TagQueryDataFetcher implements DataFetcher<Object> {
-
-    public static final String NAME = "tagQuery";
-
-    private final Resource resource;
-
-    TagQueryDataFetcher(Resource r) {
-        this.resource = r;
-    }
-
-    static String jcrQuery(String ... tags) {
+    static String jcrQuery(String... tags) {
         // Build a query like
-        //  /jcr:root/content/articles//*[@tags = "panel" and @tags = "card"]
+        // /jcr:root/content/articles//*[@tags = "panel" and @tags = "card"]
         final StringBuilder sb = new StringBuilder("/jcr:root" + Constants.ARTICLES_ROOT + "//*[");
-        for(int i=0 ; i < tags.length; i++) {
-            if(i > 0) {
+        for (int i = 0; i < tags.length; i++) {
+            if (i > 0) {
                 sb.append(" and ");
             }
             sb.append("@tags=\"").append(tags[i]).append("\"");
@@ -58,19 +51,19 @@ class TagQueryDataFetcher implements DataFetcher<Object> {
     }
 
     @Override
-    public Object get(DataFetchingEnvironment environment) throws Exception {
+    public Object get(SlingDataFetcherEnvironment env) throws Exception {
         final Map<String, Object> result = new HashMap<>();
         final List<Map<String, Object>> articles = new ArrayList<>();
-        final ValueMap vm = resource.adaptTo(ValueMap.class);
-        if(vm != null) {
-            final String [] tags = vm.get("tags", String[].class);
-            if(tags != null) {
+        final ValueMap vm = env.getCurrentResource().adaptTo(ValueMap.class);
+        if (vm != null) {
+            final String[] tags = vm.get("tags", String[].class);
+            if (tags != null) {
                 result.put("articles", articles);
                 result.put("query", tags);
 
-                final Iterator<Resource> it = resource.getResourceResolver().findResources(jcrQuery(tags), "xpath");
+                final Iterator<Resource> it = env.getCurrentResource().getResourceResolver().findResources(jcrQuery(tags), "xpath");
                 // TODO should stop/paginate if too many results
-                while(it.hasNext()) {
+                while (it.hasNext()) {
                     articles.add(SlingWrappers.resourceWrapper(it.next()));
                 }
             }

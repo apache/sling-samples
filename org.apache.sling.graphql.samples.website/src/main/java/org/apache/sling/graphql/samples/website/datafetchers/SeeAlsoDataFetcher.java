@@ -26,36 +26,30 @@ import java.util.Map;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.graphql.api.SlingDataFetcher;
+import org.apache.sling.graphql.api.SlingDataFetcherEnvironment;
 import org.apache.sling.graphql.samples.website.models.SlingWrappers;
-
-import graphql.schema.DataFetcher;
-import graphql.schema.DataFetchingEnvironment;
+import org.osgi.service.component.annotations.Component;
 
 /** Retrieve additional information for our articles 'seeAlso' field */
-class SeeAlsoDataFetcher implements DataFetcher<Object> {
+@Component(service = SlingDataFetcher.class, property = {"name=samples/seeAlso"})
+public class SeeAlsoDataFetcher implements SlingDataFetcher<Object> {
 
-    public static final String NAME = "seeAlso";
-
-    private final Resource resource;
-
-    SeeAlsoDataFetcher(Resource r) {
-        this.resource = r;
-    }
-
-    /** For "see also", our articles have just the article name but no path or section.
-     *  This maps those names (which are Sling Resource names) to their Resource, so
-     *  we can use the full path + title to render links.
+    /**
+     * For "see also", our articles have just the article name but no path or
+     * section. This maps those names (which are Sling Resource names) to their
+     * Resource, so we can use the full path + title to render links.
      */
     private static Map<String, Object> toArticleRef(ResourceResolver resolver, String nodeName) {
         final String jcrQuery = String.format("/jcr:root%s//*[@filename='%s']", Constants.ARTICLES_ROOT, nodeName);
         final Iterator<Resource> it = resolver.findResources(jcrQuery, "xpath");
 
         // We want exactly one result
-        if(!it.hasNext()) {
+        if (!it.hasNext()) {
             throw new RuntimeException("No Resource found:" + jcrQuery);
         }
         final Map<String, Object> result = SlingWrappers.resourceWrapper(it.next());
-        if(it.hasNext()) {
+        if (it.hasNext()) {
             throw new RuntimeException("More than one Resource found:" + jcrQuery);
         }
 
@@ -63,17 +57,14 @@ class SeeAlsoDataFetcher implements DataFetcher<Object> {
     }
 
     @Override
-    public Object get(DataFetchingEnvironment env) throws Exception {
-
+    public Object get(SlingDataFetcherEnvironment env) throws Exception {
         // Our "see also" field only contains node names - this demonstrates
         // using a query to get their full paths
-        // 
-        final ValueMap vm = FetcherUtil.getSourceResource(env, resource).adaptTo(ValueMap.class);
-        if(vm != null) {
-            return Arrays
-                .stream(vm.get(NAME, String[].class))
-                .map(it -> toArticleRef(resource.getResourceResolver(), it))
-                .toArray();
+        //
+        final ValueMap vm = FetcherUtil.getSourceResource(env).adaptTo(ValueMap.class);
+        if (vm != null) {
+            return Arrays.stream(vm.get("seeAlso", String[].class))
+                    .map(it -> toArticleRef(env.getCurrentResource().getResourceResolver(), it)).toArray();
         }
         return null;
     }

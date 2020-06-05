@@ -25,32 +25,25 @@ import java.util.Map;
 import java.util.stream.StreamSupport;
 
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.graphql.api.SlingDataFetcher;
+import org.apache.sling.graphql.api.SlingDataFetcherEnvironment;
 import org.apache.sling.graphql.samples.website.models.SlingWrappers;
-
-import graphql.schema.DataFetcher;
-import graphql.schema.DataFetchingEnvironment;
+import org.osgi.service.component.annotations.Component;
 
 /** Find articles that belong to a given section (business, news etc) */
-class ArticlesBySectionFetcher implements DataFetcher<Object> {
-
-    public static final String NAME = "articlesBySection";
-
-    private final Resource section;
-
-    ArticlesBySectionFetcher(Resource section) {
-        this.section = section;
-    }
+@Component(service = SlingDataFetcher.class, property = {"name=samples/articlesBySection"})
+public class ArticlesBySectionFetcher implements SlingDataFetcher<Object> {
 
     @Override
-    public Object get(DataFetchingEnvironment env) throws Exception {
+    public Object get(SlingDataFetcherEnvironment env) throws Exception {
         // TODO should paginate instead
         final int maxArticles = 42;
 
+        final Resource section = env.getCurrentResource();
         final List<Map<String, Object>> result = new ArrayList<>();
         final Iterable<Resource> it = () -> section.getResourceResolver().getChildren(section).iterator();
-        StreamSupport.stream(it.spliterator(), false)
-            .limit(maxArticles)
-            .forEach(child -> result.add(SlingWrappers.resourceWrapper(child)));
+        StreamSupport.stream(it.spliterator(), false).limit(maxArticles)
+                .forEach(child -> result.add(SlingWrappers.resourceWrapper(child)));
         return result;
     }
 }

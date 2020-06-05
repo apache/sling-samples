@@ -22,7 +22,7 @@ package org.apache.sling.graphql.samples.website.datafetchers;
 import java.util.Map;
 
 import org.apache.sling.api.resource.Resource;
-import graphql.schema.DataFetchingEnvironment;
+import org.apache.sling.graphql.api.SlingDataFetcherEnvironment;
 
 class FetcherUtil {
 
@@ -32,16 +32,16 @@ class FetcherUtil {
     /** Return the "source" Resource to use, preferably the one provided
      *  by the DataFetchingEnvironment, otherwise the supplied base Resource.
      */
-    static Resource getSourceResource(DataFetchingEnvironment env, Resource base) {
-        Resource result = base;
+    static Resource getSourceResource(SlingDataFetcherEnvironment env) {
+        Resource result = env.getCurrentResource();
         String path = null;
-        final Object o = env.getSource();
+        final Object o = env.getParentObject();
         if(o instanceof Map) {
             final Map<?, ?> m = (Map<?,?>)o;
             path = String.valueOf(m.get("path"));
         }
         if(path != null) {
-            final Resource r = base.getResourceResolver().getResource(base, path);
+            final Resource r = result.getResourceResolver().getResource(result, path);
             if(r != null) {
                 result = r;
             }
