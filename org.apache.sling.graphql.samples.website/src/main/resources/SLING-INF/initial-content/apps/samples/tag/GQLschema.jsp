@@ -22,7 +22,7 @@
 type Query {
   # Find articles which have the current
   # set of tags
-  tagQuery: TagQuery @fetcher(name:"samples/tagQuery")
+  tagQuery: TagQuery @fetcher(name:"website/tagQuery")
 
   <%@include file="../common/common-query-parts.jsp" %>
 }

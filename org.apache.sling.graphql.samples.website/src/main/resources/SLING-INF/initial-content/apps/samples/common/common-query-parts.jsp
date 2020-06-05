@@ -17,4 +17,4 @@
 * under the License.
 --%>
 
-navigation: Navigation @fetcher(name:"samples/navigation")
+navigation: Navigation @fetcher(name:"website/navigation")

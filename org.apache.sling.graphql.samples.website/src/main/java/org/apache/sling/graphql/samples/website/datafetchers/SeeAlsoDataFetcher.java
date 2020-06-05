@@ -32,7 +32,7 @@ import org.apache.sling.graphql.samples.website.models.SlingWrappers;
 import org.osgi.service.component.annotations.Component;
 
 /** Retrieve additional information for our articles 'seeAlso' field */
-@Component(service = SlingDataFetcher.class, property = {"name=samples/seeAlso"})
+@Component(service = SlingDataFetcher.class, property = {"name=website/seeAlso"})
 public class SeeAlsoDataFetcher implements SlingDataFetcher<Object> {
 
     /**

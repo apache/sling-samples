@@ -23,7 +23,7 @@ type Query {
   <%@include file="../common/common-query-parts.jsp" %>
   
   # List of Articles which contain the supplied text
-  article (withText : String) : [Article] @fetcher(name:"samples/articlesWithText")
+  article (withText : String) : [Article] @fetcher(name:"website/articlesWithText")
 }
 
 <%@include file="/apps/samples/common/GQLschema.jsp" %>

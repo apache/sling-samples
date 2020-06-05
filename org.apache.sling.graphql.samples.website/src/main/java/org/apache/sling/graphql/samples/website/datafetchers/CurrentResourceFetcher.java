@@ -25,7 +25,7 @@ import org.apache.sling.graphql.samples.website.models.SlingWrappers;
 import org.osgi.service.component.annotations.Component;
 
 /** Convert the current SlingResource to a GraphQL-friendly Map */
-@Component(service = SlingDataFetcher.class, property = {"name=samples/currentResource"})
+@Component(service = SlingDataFetcher.class, property = {"name=website/currentResource"})
 public class CurrentResourceFetcher implements SlingDataFetcher<Object> {
     @Override
     public Object get(SlingDataFetcherEnvironment env) throws Exception {

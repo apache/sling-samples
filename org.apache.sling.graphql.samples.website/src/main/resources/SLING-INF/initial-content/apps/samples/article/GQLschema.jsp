@@ -21,7 +21,7 @@
 
 type Query {
   # The current Article
-  article : Article @fetcher(name:"samples/currentResource")
+  article : Article @fetcher(name:"website/currentResource")
 
   <%@include file="../common/common-query-parts.jsp" %>
 }

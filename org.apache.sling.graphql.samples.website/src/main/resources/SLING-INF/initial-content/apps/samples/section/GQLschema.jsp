@@ -21,7 +21,7 @@
 
 type Query {
   # The current content section
-  section: Section @fetcher(name:"samples/currentResource")
+  section: Section @fetcher(name:"website/currentResource")
 
   <%@include file="../common/common-query-parts.jsp" %>
 }

@@ -36,7 +36,7 @@ import org.osgi.service.component.annotations.Component;
 /**
  * Retrieve navigation information for our website: sections, content root etc.
  */
-@Component(service = SlingDataFetcher.class, property = {"name=samples/navigation"})
+@Component(service = SlingDataFetcher.class, property = {"name=website/navigation"})
 public class NavigationDataFetcher implements SlingDataFetcher<Object> {
 
     private Object[] getSections(Resource r) {

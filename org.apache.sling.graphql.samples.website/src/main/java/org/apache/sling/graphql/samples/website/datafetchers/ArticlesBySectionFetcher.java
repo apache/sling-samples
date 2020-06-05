@@ -31,7 +31,7 @@ import org.apache.sling.graphql.samples.website.models.SlingWrappers;
 import org.osgi.service.component.annotations.Component;
 
 /** Find articles that belong to a given section (business, news etc) */
-@Component(service = SlingDataFetcher.class, property = {"name=samples/articlesBySection"})
+@Component(service = SlingDataFetcher.class, property = {"name=website/articlesBySection"})
 public class ArticlesBySectionFetcher implements SlingDataFetcher<Object> {
 
     @Override

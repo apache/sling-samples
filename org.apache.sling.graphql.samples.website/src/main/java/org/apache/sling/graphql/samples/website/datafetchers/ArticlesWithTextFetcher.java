@@ -31,7 +31,7 @@ import org.apache.sling.graphql.samples.website.models.SlingWrappers;
 import org.osgi.service.component.annotations.Component;
 
 /** Find articles which contain specific text */
-@Component(service = SlingDataFetcher.class, property = {"name=samples/articlesWithText"})
+@Component(service = SlingDataFetcher.class, property = {"name=website/articlesWithText"})
 public class ArticlesWithTextFetcher implements SlingDataFetcher<Object> {
 
     public static final String P_WITH_TEXT = "withText";

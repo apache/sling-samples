@@ -44,7 +44,7 @@ type Section {
   path: String
   
   # List of articles in this section
-  articles: [Article] @fetcher(name:"samples/articlesBySection")
+  articles: [Article] @fetcher(name:"website/articlesBySection")
 }
 
 # Articles are the core content of our website
@@ -57,7 +57,7 @@ type Article {
   section: String
 
   # List of "See Also" articles
-  seeAlso: [Article] @fetcher(name:"samples/seeAlso")
+  seeAlso: [Article] @fetcher(name:"website/seeAlso")
 }
 
 # A query for articles which have specific tags

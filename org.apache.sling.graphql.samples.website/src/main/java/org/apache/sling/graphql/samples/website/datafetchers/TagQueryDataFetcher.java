@@ -33,7 +33,7 @@ import org.apache.sling.graphql.samples.website.models.SlingWrappers;
 import org.osgi.service.component.annotations.Component;
 
 /** Retrieve articles which have a given tag or set of tags */
-@Component(service = SlingDataFetcher.class, property = {"name=samples/tagQuery"})
+@Component(service = SlingDataFetcher.class, property = {"name=website/tagQuery"})
 public class TagQueryDataFetcher implements SlingDataFetcher<Object> {
 
     static String jcrQuery(String... tags) {
