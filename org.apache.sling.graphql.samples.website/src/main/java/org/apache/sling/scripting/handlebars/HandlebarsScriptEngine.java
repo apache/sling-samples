@@ -40,8 +40,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.scripting.SlingBindings;
-import org.apache.sling.servlethelpers.MockSlingHttpServletRequest;
-import org.apache.sling.servlethelpers.MockSlingHttpServletResponse;
+import org.apache.sling.servlethelpers.internalrequests.InternalRequest;
 
 /** Minimal script engine for server-side rendering
  *  using Handlebars templates. Might need some changes if
@@ -88,27 +87,20 @@ public class HandlebarsScriptEngine extends AbstractScriptEngine {
     /** We might do this with a BindingsValuesProvider? */
     private Map<?, ?> getData(Resource r) throws ScriptException {
         // Request resource.json and convert the result to Maps
-        final String jsonString = internalRequest(r.getResourceResolver(), r.getPath() + ".json");
-        return JsonReader.jsonToMaps(jsonString);
-    }
-
-    private String internalRequest(ResourceResolver resourceResolver, String path) throws ScriptException {
-        final MockSlingHttpServletRequest request = new MockSlingHttpServletRequest(resourceResolver);
-        request.setPathInfo(path);
-        final MockSlingHttpServletResponse response = new MockSlingHttpServletResponse();
-
+        String jsonString = null;
         try {
-            factory.getSlingRequestProcessor().processRequest(request, response, resourceResolver);
-            final int status = response.getStatus();
-            if(status != 200) {
-                throw new ScriptException ("Request to " + path + " returns HTTP status " + status);
-            }
-                return response.getOutputAsString();
+            jsonString = InternalRequest
+                .slingRequest(r.getResourceResolver(), factory.getSlingRequestProcessor(), r.getPath())
+                .withExtension("json")
+                .execute()
+                .getResponseAsString()
+            ;
         } catch(Exception e) {
             final ScriptException up = new ScriptException("Internal request failed");
             up.initCause(e);
             throw up;
         }
+        return JsonReader.jsonToMaps(jsonString);
     }
 
     @Override
