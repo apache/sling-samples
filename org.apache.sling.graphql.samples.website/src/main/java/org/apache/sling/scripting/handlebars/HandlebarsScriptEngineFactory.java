@@ -22,7 +22,7 @@ package org.apache.sling.scripting.handlebars;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 
-import org.apache.sling.engine.SlingRequestProcessor;
+import org.apache.sling.api.servlets.ServletResolver;
 import org.apache.sling.scripting.api.AbstractScriptEngineFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
@@ -50,7 +50,7 @@ public class HandlebarsScriptEngineFactory extends AbstractScriptEngineFactory {
     public static final String LANGUAGE_VERSION = "Sling:Handlebars:0.1";
 
     @Reference
-    private SlingRequestProcessor requestProcessor;
+    private ServletResolver servletResolver;
 
     @Activate
     private void activate(final HandlebarsScriptEngineFactoryConfig config, final BundleContext ctx) {
@@ -74,7 +74,7 @@ public class HandlebarsScriptEngineFactory extends AbstractScriptEngineFactory {
         return new HandlebarsScriptEngine(this);
     }
 
-    SlingRequestProcessor getSlingRequestProcessor() {
-        return requestProcessor;
+    ServletResolver getServletResolver() {
+        return servletResolver;
     }
 }

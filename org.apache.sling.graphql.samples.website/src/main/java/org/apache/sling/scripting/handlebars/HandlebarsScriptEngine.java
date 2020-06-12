@@ -38,9 +38,10 @@ import com.github.jknack.handlebars.helper.StringHelpers;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.scripting.SlingBindings;
-import org.apache.sling.servlethelpers.internalrequests.InternalRequest;
+import org.apache.sling.servlethelpers.internalrequests.ServletInternalRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Minimal script engine for server-side rendering
  *  using Handlebars templates. Might need some changes if
@@ -55,6 +56,7 @@ import org.apache.sling.servlethelpers.internalrequests.InternalRequest;
  */
 public class HandlebarsScriptEngine extends AbstractScriptEngine {
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
     private final HandlebarsScriptEngineFactory factory;
 
     public HandlebarsScriptEngine(HandlebarsScriptEngineFactory factory) {
@@ -89,20 +91,21 @@ public class HandlebarsScriptEngine extends AbstractScriptEngine {
         // Request resource.json and convert the result to Maps
         String jsonString = null;
         try {
-            jsonString = InternalRequest
-                .slingRequest(r.getResourceResolver(), factory.getSlingRequestProcessor(), r.getPath())
+            jsonString =
+                new ServletInternalRequest(factory.getServletResolver(), r)
                 .withExtension("json")
-                .withResourceType(r.getResourceType())
-                .withResourceSuperType(r.getResourceSuperType())
                 .execute()
                 .getResponseAsString()
             ;
         } catch(Exception e) {
             final ScriptException up = new ScriptException("Internal request failed");
             up.initCause(e);
+            log.info("getData() failed", up);
             throw up;
         }
-        return JsonReader.jsonToMaps(jsonString);
+        final Map<?, ?> result = JsonReader.jsonToMaps(jsonString);
+        log.debug("getData() returns a Map with {} keys", result.keySet().size());
+        return result;
     }
 
     @Override

@@ -32,13 +32,15 @@
     },
     "org.apache.sling.commons.log.LogManager.factory.config~debug.log" : {
       "org.apache.sling.commons.log.file": "logs/debug.log",
-      "org.apache.sling.commons.log.level": "DEBUG",
+      "org.apache.sling.commons.log.level": "INFO",
       "org.apache.sling.commons.log.names":
         [
           "org.apache.sling.engine",
           "org.apache.sling.servlet",
           "org.apache.sling.servlets",
-          "org.apache.sling.servlethelpers.internalrequests"
+          "org.apache.sling.servlethelpers.internalrequests",
+          "org.apache.sling.graphql",
+          "org.apache.sling.scripting"
         ],
       "org.apache.sling.commons.log.pattern": "%-5level [%-50logger{50}] %message ## %mdc{sling.InternalRequest} %n"
     }
