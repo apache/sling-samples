@@ -92,6 +92,8 @@ public class HandlebarsScriptEngine extends AbstractScriptEngine {
             jsonString = InternalRequest
                 .slingRequest(r.getResourceResolver(), factory.getSlingRequestProcessor(), r.getPath())
                 .withExtension("json")
+                .withResourceType(r.getResourceType())
+                .withResourceSuperType(r.getResourceSuperType())
                 .execute()
                 .getResponseAsString()
             ;
