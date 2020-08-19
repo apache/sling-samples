@@ -1,6 +1,6 @@
 [<img src="https://sling.apache.org/res/logos/sling.png"/>](https://sling.apache.org)
 
- [![Build Status](https://builds.apache.org/buildStatus/icon?job=Sling/sling-samples/master)](https://builds.apache.org/job/Sling/job/sling-samples/job/master) [![Test Status](https://img.shields.io/jenkins/t/https/builds.apache.org/job/Sling/job/sling-samples/job/master.svg)](https://builds.apache.org/job/Sling/job/sling-samples/job/master/test_results_analyzer/) 
+ [![Build Status](https://ci-builds.apache.org/job/Sling/job/modules/job/sling-samples/job/master/badge/icon)](https://ci-builds.apache.org/job/Sling/job/modules/job/sling-samples/job/master) [![Test Status](https://img.shields.io/jenkins/t/https/ci-builds.apache.org/job/Sling/job/modules/job/sling-samples/job/master.svg)](https://ci-builds.apache.org/job/Sling/job/modules/job/sling-samples/job/master/lastCompletedBuild/testReport/) 
 
 Apache Sling Samples
 ---
