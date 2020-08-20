@@ -14,9 +14,6 @@ and a few Java classes used for aggregating or enhancing content and for content
 For now there's no pagination of query results, just arbitrary limits on the number
 of results returned.
 
-The entry point for the demo website (after starting this as described below) 
-is http://localhost:8080/content/articles 
-
 ## GraphQL and Handlebars, on both the server and client sides
 
 The articles and navigation pages are rendered using server-side Handlebars templates,
@@ -28,30 +25,34 @@ request provides all the page content and navigation.
 
 Those `.json` URLs are also accessible from the outside if client-side rendering is preferred.
 
-The search page at `/content/search.html` uses client-side GraphQL queries and client-side
-Handlebars rendering (along with JQuery for glue) to demonstrate using the same tools on the server
-or client side, with minimal differences between both modes.
+The search page at `/content/search.html`, which needs a more dynamic behavior, uses client-side
+GraphQL queries and client-side Handlebars rendering, along with JQuery for glue. This
+demonstratse using the same tools on the server or client side, with minimal differences
+between both modes.
 
 With this we get the best of both worlds: server-side queries and rendering for the article
 pages, so that they make sense for Web search engines for example, and client-side queries and
 rendering for the more dynamic "search" single-page application example.
 
-Handlebars was selected for this example as it's easy to learn and easy to implement on both the
+Handlebars was selected for this example as it's simple and easy to implement on both the
 server and client sides. As usual with Sling, everything is pluggable so it can be replaced with
 your favorite rendering engine if desired.
 
 A small amount of Java code is used to implement the content querying and aggregation extensions.
 Writing that code requires only minimal knowledge of Sling. So far that code only uses the
-Sling `Resource` and `ResourceResolver` APIs to collect and aggregate content.
+Sling `Resource` and `ResourceResolver` APIs to collect and aggregate content by implementing
+`SlingDataFetcher` services. The GraphQL core also supports scripted data fetchers but as I
+write this we don't have one in this sample, see the GraphQL core module tests if you're interested
+in that feature.
 
-This sample currently also includes the `HandlebarsScriptEngine` implementation, used for
-server-side rendering. We might move it to its own Sling module later if there's interest, for now
-it implements just the minimum required for this sample.
+This sample currently also includes its own `HandlebarsScriptEngine` implementation for
+server-side rendering. We might move it to its own Sling module later if there's interest, for
+now it implements just the minimum required for this sample.
 
 ## Client-side GraphQL queries
 
 Client-side queries work using an external GraphiQL client (or any suitable client) that
-talks to http://localhost:8080/graphql.json
+talks to our `GraphQLServlet` - see below for how to run that.
 
 Here's an example query:
 
@@ -89,20 +90,14 @@ the server-side and client-side query variants.
 
 ## How to run this
 
-This is early days, some assembly is required:
+Build and run with
 
-* Build the [GraphQL Core](https://github.com/apache/sling-org-apache-sling-graphql-core/) module
-* Build the [Sling Kickstart](https://github.com/apache/sling-org-apache-sling-kickstart) module
-* Build this module with `mvn clean install`
+    mvn clean package exec:java
 
-Then start the demo Sling instance using
+And open http://localhost:8080/ which should redirect to `/articles/music.html` and show a list
+of articles from the _Music_ category from our demo website.
 
-    rm -rf launcher/ conf/
-    java -jar ${THE_CORRECT_PATH}/org.apache.sling.kickstart-0.0.3-SNAPSHOT.jar \
-    -s src/main/resources/features/feature-sling12.json \
-    -af src/main/resources/features/feature-graphql-example-website.json 
-
-And open the above mentioned start page.
+Or point a GraphQL client to http://localhost:8080/graphql.json to test client-side queries.
 
 ## Under the hood
 

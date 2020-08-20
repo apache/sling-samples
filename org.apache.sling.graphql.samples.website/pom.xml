@@ -52,6 +52,36 @@
           <failOnMissing>false</failOnMissing>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${basedir}</directory>
+              <includes>
+                <include>launcher/**</include>
+                <include>conf/**</include>
+              </includes>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>org.apache.sling.kickstart.app.KickstartStarter</mainClass>
+          <commandlineArgs>-s src/main/resources/features/feature-sling12.json -af src/main/resources/features/feature-graphql-example-website.json</commandlineArgs>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
@@ -60,7 +90,7 @@
       <groupId>org.apache.sling</groupId>
       <artifactId>org.apache.sling.graphql.core</artifactId>
       <!-- keep the version number in sync between pom.xml and feature-graphql-example-website.json -->
-      <version>0.0.3-SNAPSHOT</version>
+      <version>0.0.4</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -131,6 +161,12 @@
       <artifactId>commons-io</artifactId>
       <version>2.4</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sling</groupId>
+      <artifactId>org.apache.sling.kickstart</artifactId>
+      <version>0.0.2</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 

@@ -8,7 +8,7 @@
   "bundles":[
     {
       // keep the version number in sync between pom.xml and feature-graphql-example-website.json
-      "id" : "org.apache.sling:org.apache.sling.graphql.core:0.0.3-SNAPSHOT",
+      "id" : "org.apache.sling:org.apache.sling.graphql.core:0.0.4",
       "start-order":"20",
       "configurations" : {
         "org.apache.sling.graphql.core.GraphQLServlet~default" : {
