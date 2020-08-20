@@ -51,8 +51,8 @@ now it implements just the minimum required for this sample.
 
 ## Client-side GraphQL queries
 
-Client-side queries work using an external GraphiQL client (or any suitable client) that
-talks to our `GraphQLServlet` - see below for how to run that.
+Client-side queries work using an external [GraphiQL](https://graphql.org/swapi-graphql)
+client (or any suitable client) that talks to our `GraphQLServlet` - see below for how to run that.
 
 Here's an example query:
 
