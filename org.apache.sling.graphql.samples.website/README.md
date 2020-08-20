@@ -92,7 +92,7 @@ the server-side and client-side query variants.
 
 Build and run with
 
-    mvn clean package exec:java
+    mvn clean install exec:java
 
 And open http://localhost:8080/ which should redirect to `/articles/music.html` and show a list
 of articles from the _Music_ category from our demo website.
