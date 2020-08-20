@@ -20,6 +20,7 @@
 package org.apache.sling.graphql.samples.website.datafetchers;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -30,10 +31,14 @@ import org.apache.sling.graphql.api.SlingDataFetcher;
 import org.apache.sling.graphql.api.SlingDataFetcherEnvironment;
 import org.apache.sling.graphql.samples.website.models.SlingWrappers;
 import org.osgi.service.component.annotations.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Retrieve additional information for our articles 'seeAlso' field */
 @Component(service = SlingDataFetcher.class, property = {"name=website/seeAlso"})
 public class SeeAlsoDataFetcher implements SlingDataFetcher<Object> {
+
+    private static final Logger log = LoggerFactory.getLogger(SeeAlsoDataFetcher.class);
 
     /**
      * For "see also", our articles have just the article name but no path or
@@ -44,9 +49,11 @@ public class SeeAlsoDataFetcher implements SlingDataFetcher<Object> {
         final String jcrQuery = String.format("/jcr:root%s//*[@filename='%s']", Constants.ARTICLES_ROOT, nodeName);
         final Iterator<Resource> it = resolver.findResources(jcrQuery, "xpath");
 
-        // We want exactly one result
+        // We want zero to one result: do not fail for dangling "see also" references,
+        // just log them
         if (!it.hasNext()) {
-            throw new RuntimeException("No Resource found:" + jcrQuery);
+            log.warn("No Resource Found: {}", jcrQuery);
+            return Collections.emptyMap();
         }
         final Map<String, Object> result = SlingWrappers.resourceWrapper(it.next());
         if (it.hasNext()) {
