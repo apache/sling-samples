@@ -22,14 +22,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.sling</groupId>
-        <artifactId>sling</artifactId>
-        <version>33</version>
+        <artifactId>sling-bundle-parent</artifactId>
+        <version>39</version>
         <relativePath />
     </parent>
 
     <artifactId>org.apache.sling.sample.slingshot</artifactId>
     <version>0.9.1-SNAPSHOT</version>
-    <packaging>bundle</packaging>
 
     <name>Apache Sling Sample Slingshot</name>
 
@@ -50,32 +49,12 @@
         <plugins>
             <!-- Bundling the sample project -->
             <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-                <executions>
-                    <!-- Configure extra execution of 'manifest' in process-classes phase to make sure SCR metadata is generated before unit test runs -->
-                    <execution>
-                        <id>scr-metadata</id>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                        <configuration>
-                            <supportIncrementalBuild>true</supportIncrementalBuild>
-                        </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <instructions>
-                        <!-- initial content to be loaded on bundle installation -->
-                        <Sling-Initial-Content>
-                            SLING-INF/content/slingshot;overwrite:=true;path:=/content/slingshot;maven:mount:=false,
-                            SLING-INF/content/libs/slingshot;overwrite:=true;path:=/libs/slingshot;maven:mount:=true
-                        </Sling-Initial-Content>
-                    </instructions>
-                    <!-- Export SCR metadata to classpath to have them available in unit tests -->
-                    <exportScr>true</exportScr>
-                </configuration>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-baseline-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.sling</groupId>
@@ -176,6 +155,10 @@
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.annotation.versioning</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
         </dependency>
         <!-- Apache Sling -->
         <dependency>

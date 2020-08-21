@@ -1,0 +1,3 @@
+Sling-Initial-Content: \
+    SLING-INF/content/slingshot;overwrite:=true;path:=/content/slingshot;maven:mount:=false, \
+    SLING-INF/content/libs/slingshot;overwrite:=true;path:=/libs/slingshot;maven:mount:=true
