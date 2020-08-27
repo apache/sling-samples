@@ -19,11 +19,16 @@
 
 <%@include file="../common/directives.jsp" %>
 
+scalar Object
+
 type Query {
   <%@include file="../common/common-query-parts.jsp" %>
   
   # List of Articles which contain the supplied text
   article (withText : String) : [Article] @fetcher(name:"website/articlesWithText")
+
+  # Testing a Scalar that returns an unpredictable JSON structure
+  random : Object @fetcher(name:"website/random")
 }
 
 <%@include file="/apps/samples/common/GQLschema.jsp" %>

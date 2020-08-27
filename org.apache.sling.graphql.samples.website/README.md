@@ -88,6 +88,50 @@ the server-side and client-side query variants.
     
     <%@include file="/apps/samples/common/GQLschema.jsp" %>
 
+
+## Unstructured content
+
+Sling applications often deal with unstructred or semi-structured content which
+doesn't have a strict schema.
+
+To demonstrate how this works with GraphQL queries, in this sample you can use a
+query such as
+
+    {
+      navigation {
+        root
+      }
+      random
+    }
+
+Which includes a randomly generated hierarchical structure, to test how GraphQL
+clients cope (they should - it's part of the standard) with results such as
+
+    {
+      "data": {
+        "navigation": {
+          "root": "/content/articles"
+        },
+        "random": {
+          "key1": 112,
+          "sub2": {
+            "key1": false,
+            "sub2": {
+              "key1": true
+            },
+            "key5": [
+              true,
+              true
+            ],
+            "key3": true
+          }
+        }
+      }
+    }
+
+where the "shape" and content of the `random` element can vary widely, simulating
+varying content structures.
+
 ## How to run this
 
 Build and run with
