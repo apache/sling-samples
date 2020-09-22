@@ -1,5 +1,5 @@
 Apache Sling GraphQL demo website
-----
+====
 
 This is a work in progress demo of the [Sling GraphQL Core](https://github.com/apache/sling-org-apache-sling-graphql-core/).
 
@@ -13,6 +13,20 @@ and a few Java classes used for aggregating or enhancing content and for content
 
 For now there's no pagination of query results, just arbitrary limits on the number
 of results returned.
+
+## How to run this
+
+Build and run with
+
+```bash
+mvn clean install
+java -jar target/dependency/org.apache.sling.feature.launcher.jar -f target/slingfeature-tmp/feature-sling12.json
+```
+
+And open http://localhost:8080/ which should redirect to `/articles/music.html` and show a list
+of articles from the _Music_ category from our demo website.
+
+Or point a GraphQL client to http://localhost:8080/graphql.json to test client-side queries.
 
 ## GraphQL and Handlebars, on both the server and client sides
 
@@ -131,17 +145,6 @@ clients cope (they should - it's part of the standard) with results such as
 
 where the "shape" and content of the `random` element can vary widely, simulating
 varying content structures.
-
-## How to run this
-
-Build and run with
-
-    mvn clean install exec:java
-
-And open http://localhost:8080/ which should redirect to `/articles/music.html` and show a list
-of articles from the _Music_ category from our demo website.
-
-Or point a GraphQL client to http://localhost:8080/graphql.json to test client-side queries.
 
 ## Under the hood
 

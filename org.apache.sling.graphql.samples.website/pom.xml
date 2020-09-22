@@ -67,20 +67,35 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <groupId>org.apache.sling</groupId>
+        <artifactId>slingfeature-maven-plugin</artifactId>
+        <version>1.3.6</version>
+        <extensions>true</extensions>
         <executions>
           <execution>
+            <id>attach-features</id>
             <goals>
-              <goal>java</goal>
+              <goal>attach-features</goal>
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <mainClass>org.apache.sling.kickstart.app.KickstartStarter</mainClass>
-          <commandlineArgs>-s src/main/resources/features/feature-sling12.json -af src/main/resources/features/feature-graphql-example-website.json</commandlineArgs>
-        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>prepare-feature-launcher</id>
+            <goals>
+              <goal>get</goal>
+              <goal>copy</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <artifact>org.apache.sling:org.apache.sling.feature.launcher:1.1.4</artifact>
+              <stripVersion>true</stripVersion>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -90,7 +105,7 @@
       <groupId>org.apache.sling</groupId>
       <artifactId>org.apache.sling.graphql.core</artifactId>
       <!-- keep the version number in sync between pom.xml and feature-graphql-example-website.json -->
-      <version>0.0.4</version>
+      <version>0.0.5-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

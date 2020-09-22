@@ -5,22 +5,18 @@
   "vendor":"The Apache Software Foundation",
   "license":"Apache License, Version 2.0",
   "variables":{},
+  "prototype" : {
+    "id" : "org.apache.sling:org.apache.sling.starter:slingosgifeature:oak_tar:12-SNAPSHOT"
+  },
   "bundles":[
     {
       // keep the version number in sync between pom.xml and feature-graphql-example-website.json
-      "id" : "org.apache.sling:org.apache.sling.graphql.core:0.0.4",
-      "start-order":"20",
-      "configurations" : {
-        "org.apache.sling.graphql.core.GraphQLServlet~default" : {
-          "sling.servlet.resourceTypes" : "samples/servlet",
-          "sling.servlet.extensions": "json",
-          "sling.servlet.methods": [ "GET", "POST" ]
-        }
-      }
+      "id" : "org.apache.sling:org.apache.sling.graphql.core:0.0.5-SNAPSHOT",
+      "start-order":"20"
     },
     "org.apache.sling:org.apache.sling.graphql.samples.website:0.0.1-SNAPSHOT",
     "com.cedarsoftware:json-io:jar:4.12.0",
-    "com.graphql-java:graphql-java:jar:14.0",
+    "com.graphql-java:graphql-java:jar:15.0",
     "org.antlr:antlr4-runtime:jar:4.7.2",
     "com.graphql-java:java-dataloader:jar:2.2.3",
     "org.reactivestreams:reactive-streams:jar:1.0.2",
@@ -28,6 +24,11 @@
     "com.github.jknack:handlebars:4.2.0"
   ],
   "configurations":{
+    "org.apache.sling.graphql.core.GraphQLServlet~default" : {
+      "sling.servlet.resourceTypes" : "samples/servlet",
+      "sling.servlet.extensions": "json",
+      "sling.servlet.methods": [ "GET", "POST" ]
+    },
     "org.apache.sling.servlets.get.DefaultGetServlet" : {
       "aliases" : [ "json:rawjson" ]
     },
