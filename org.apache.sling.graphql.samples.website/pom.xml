@@ -105,7 +105,7 @@
       <groupId>org.apache.sling</groupId>
       <artifactId>org.apache.sling.graphql.core</artifactId>
       <!-- keep the version number in sync between pom.xml and feature-graphql-example-website.json -->
-      <version>0.0.5-SNAPSHOT</version>
+      <version>0.0.4</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
