@@ -6,7 +6,7 @@
   "license":"Apache License, Version 2.0",
   "variables":{},
   "prototype" : {
-    "id" : "org.apache.sling:org.apache.sling.starter:slingosgifeature:oak_tar:12-SNAPSHOT"
+    "id" : "org.apache.sling:org.apache.sling.starter:slingosgifeature:oak_tar:12"
   },
   "bundles":[
     {
