@@ -11,12 +11,13 @@
   "bundles":[
     {
       // keep the version number in sync between pom.xml and feature-graphql-example-website.json
-      "id" : "org.apache.sling:org.apache.sling.graphql.core:0.0.4",
+      "id" : "org.apache.sling:org.apache.sling.graphql.core:0.0.12",
       "start-order":"20"
     },
     "org.apache.sling:org.apache.sling.graphql.samples.website:0.0.1-SNAPSHOT",
+    "org.apache.johnzon:johnzon-mapper:jar:1.2.8",
     "com.cedarsoftware:json-io:jar:4.12.0",
-    "com.graphql-java:graphql-java:jar:14.0",
+    "com.graphql-java:graphql-java:jar:15.0",
     "org.antlr:antlr4-runtime:jar:4.7.2",
     "com.graphql-java:java-dataloader:jar:2.2.3",
     "org.reactivestreams:reactive-streams:jar:1.0.2",
