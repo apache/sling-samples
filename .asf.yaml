@@ -2,7 +2,17 @@ github:
   description: "Apache Sling Samples"
   homepage: "https://sling.apache.org/"
   labels:
-    - sling
-    - java
-    - samples
-    - graphql
+  - "sling"
+  - "java"
+  - "samples"
+  - "graphql"
+  autolink_jira:
+  - "SLING"
+  - "OAK"
+  - "JCR"
+  - "JCRVLT"
+  - "INFRA"
+  - "FELIX"
+  - "MNG"
+notifications:
+  jira_options: "link"
