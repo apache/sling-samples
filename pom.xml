@@ -52,7 +52,7 @@
     <scm>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</developerConnection>
-        <url>https://gitbox.apache.org/repos/asf?p=sling-samples.git</url>
+        <url>https://github.com/apache/sling-samples.git</url>
     </scm>
 
 
