@@ -1,0 +1,13 @@
+{
+  "bundles": [
+    {
+        "id": "org.apache.sling.samples/org.apache.sling.samples.oauth.core/1.0-SNAPSHOT",
+        "start-order": 20
+    }
+  ],
+  "content-packages:ARTIFACTS|required": [
+    {
+        "id":"org.apache.sling.samples/org.apache.sling.samples.oauth.ui.apps/1.0-SNAPSHOT/zip"
+    }
+  ]
+}
