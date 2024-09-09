@@ -2,7 +2,11 @@
   "bundles": [
     {
         "id": "org.apache.sling.samples/org.apache.sling.samples.oauth.core/1.0-SNAPSHOT",
-        "start-order": 20
+        "start-order": 25
+    },
+    {
+        "id": "org.apache.sling/org.apache.sling.extensions.oidc-rp/0.1-SNAPSHOT",
+        "start-order": 24
     }
   ],
   "content-packages:ARTIFACTS|required": [

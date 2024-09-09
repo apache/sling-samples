@@ -53,7 +53,7 @@
                 <configuration>
                     <instructions>
                         <Embed-Dependency>*;scope=compile;inline=true</Embed-Dependency>
-                        <Sling-Model-Packages>org.apache.sling.samples.oauth.model</Sling-Model-Packages>
+                        <Sling-Model-Packages>org.apache.sling.samples.oauth_demo</Sling-Model-Packages>
                         <_dsannotations>*</_dsannotations>
                         <_metatypeannotations>*</_metatypeannotations>
                         <_removeheaders>
@@ -68,8 +68,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>21</source>
+                    <target>21</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -125,6 +125,13 @@
             <groupId>org.apache.jackrabbit</groupId>
             <artifactId>jackrabbit-api</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.servlets.annotations</artifactId>
+            <version>1.2.4</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -140,11 +147,33 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.extensions.oidc-rp</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.13.0</version>
+            <scope>provided</scope>
+        </dependency>
+    
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.13.0</version>
+            <scope>provided</scope>
+        </dependency>
+    
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.0</version>
+            <scope>provided</scope>
+        </dependency>        
     </dependencies>
-
-    <!--
-        Attention: the autoInstallBundle was removed as deploying bundles directly and through a package is causing
-                   issues with updates and can prevent the latest code of a bundle being deployed.
-                   If you know what you are doing then you can use maven-sling-plugin directly from the Maven CLI.
-    -->
 </project>
