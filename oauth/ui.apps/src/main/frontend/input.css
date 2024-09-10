@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	
+	body {
+	   @apply bg-gray-100;
+	}
+	
+	main {
+	   @apply container bg-white rounded mx-auto my-4 p-8
+	}
+	
+	h1 {
+	   @apply text-3xl mb-4 font-bold;
+	}
+	
+	h2 {
+	   @apply text-xl mb-4 font-bold;
+	}
+	
+	p {
+	   @apply mb-4;
+	}
+}
