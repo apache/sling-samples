@@ -88,8 +88,6 @@ public class YoutubeSearchServlet extends OAuthEnabledSlingServlet {
             response.setContentType("text/html");
             request.getRequestDispatcher(request.getResource(), opts).include(request, response);
             
-            // TODO - needs a thin use object shim to expose the request attribute or a generic BVP
-            
 //            response.setStatus(HttpServletResponse.SC_OK);
 //            response.setContentType("text/html");
 //            response.getWriter().write(String.format("<p>Got %s results out of total %s</p>", youtubeResponse.items().size(), youtubeResponse.pageInfo().totalResults()));
