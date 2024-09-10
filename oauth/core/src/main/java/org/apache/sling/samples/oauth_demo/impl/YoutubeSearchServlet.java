@@ -78,25 +78,18 @@ public class YoutubeSearchServlet extends OAuthEnabledSlingServlet {
             OidcToken token) throws IOException, ServletException {
 
         try {
-            YoutubeHttpClient client = new YoutubeHttpClient();
-            YoutubeSearchResponse youtubeResponse = client.searchVideos("adaptTo", token.getValue());
+            String search = request.getParameter("search");
+            if (search != null && !search.isBlank()) {
+                YoutubeHttpClient client = new YoutubeHttpClient();
+                YoutubeSearchResponse youtubeResponse = client.searchVideos(search, token.getValue());
+                request.setAttribute("ytResponse", youtubeResponse);
+            }
             
             RequestDispatcherOptions opts = new RequestDispatcherOptions();
             opts.setReplaceSelectors("show");
             
-            request.setAttribute("ytResponse", youtubeResponse);
             response.setContentType("text/html");
             request.getRequestDispatcher(request.getResource(), opts).include(request, response);
-            
-//            response.setStatus(HttpServletResponse.SC_OK);
-//            response.setContentType("text/html");
-//            response.getWriter().write(String.format("<p>Got %s results out of total %s</p>", youtubeResponse.items().size(), youtubeResponse.pageInfo().totalResults()));
-//            response.getWriter().write("<ul>");
-//            for (Item item : youtubeResponse.items()) {
-//                response.getWriter().write(String.format("<li><a href=\"https://www.youtube.com/watch?v=%s\">%s</a></li>",
-//                        item.id().videoId(), item.snippet().title()));
-//            }
-//            response.getWriter().write("</ul>");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Please retry later");

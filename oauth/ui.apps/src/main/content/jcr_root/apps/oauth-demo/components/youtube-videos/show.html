@@ -7,7 +7,12 @@
 </head>
 <body data-sly-use.youtube="org.apache.sling.samples.oauth_demo.YoutubeVideosModel">
     <main>
-        <h1>Search results</h1>
+        <h1>Youtube Videos</h1>
+        <form>
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" value="${youtube.search}">
+            <button type="submit">Search</button>
+        </form>
         <p>ERROR? ${youtube.response.error.message}</p>
         <p>Got ${youtube.response.items.size} results of out total ${youtube.response.pageInfo.totalResults}</p>
         <div data-sly-list.item="${youtube.response.items}"

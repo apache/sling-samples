@@ -29,4 +29,8 @@ public class YoutubeVideosModel {
     public YoutubeSearchResponse getResponse() {
         return (YoutubeSearchResponse) request.getAttribute("ytResponse");
     }
+    
+    public String getSearch() {
+        return request.getParameter("search");
+    }
 }

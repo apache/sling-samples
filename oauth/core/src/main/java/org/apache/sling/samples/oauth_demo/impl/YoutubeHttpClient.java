@@ -18,10 +18,12 @@ package org.apache.sling.samples.oauth_demo.impl;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.sling.samples.oauth_demo.YoutubeSearchResponse;
 
@@ -34,6 +36,7 @@ public class YoutubeHttpClient {
     public YoutubeSearchResponse searchVideos(String query, String accessToken) throws IOException, InterruptedException {
         
         try ( HttpClient client = HttpClient.newHttpClient() ) {
+            query = URLEncoder.encode(query.trim(), StandardCharsets.UTF_8);
             HttpRequest searchRequest = HttpRequest.newBuilder()
                 .uri(URI.create(API_BASE + "/search?part=snippet&maxResults=20&q=" + query + "&type=video"))
                 .header("Authorization", "Bearer " + accessToken)
