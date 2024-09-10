@@ -602,6 +602,22 @@ video {
   margin-bottom: 1rem;
 }
 
+.flex {
+  display: flex;
+}
+
+.basis-1\/3 {
+  flex-basis: 33.333333%;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .rounded {
   border-radius: 0.25rem;
 }
@@ -620,9 +636,19 @@ video {
   padding: 2rem;
 }
 
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-bold {
