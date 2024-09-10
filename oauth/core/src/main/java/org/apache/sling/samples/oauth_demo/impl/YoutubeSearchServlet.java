@@ -42,35 +42,15 @@ import org.osgi.service.component.annotations.Reference;
 public class YoutubeSearchServlet extends OAuthEnabledSlingServlet {
 
     private static final long serialVersionUID = 1L;
-    private final OidcConnection connection;
-    private OidcTokenStore tokenStore;
-    private OidcClient oidcClient;
     
     @Activate
     public YoutubeSearchServlet(@Reference OidcConnection connection, @Reference OidcTokenStore tokenStore, @Reference OidcClient oidcClient) {
-        this.connection = connection;
-        this.tokenStore = tokenStore;
-        this.oidcClient = oidcClient;
+        super(connection, tokenStore, oidcClient);
     }
 
     @Override
     protected @NotNull String getRedirectPath(@NotNull SlingHttpServletRequest request) {
         return request.getRequestURI();
-    }
-
-    @Override
-    protected @NotNull OidcConnection getConnection() {
-        return connection;
-    }
-    
-    @Override
-    protected @NotNull OidcClient getOidcClient() {
-        return oidcClient;
-    }
-    
-    @Override
-    protected @NotNull OidcTokenStore getTokenStore() {
-        return tokenStore;
     }
 
     @Override
