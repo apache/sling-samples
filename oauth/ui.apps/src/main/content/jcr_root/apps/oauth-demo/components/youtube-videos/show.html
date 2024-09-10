@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/oauth-demo/static/css/output.css" rel="stylesheet">
 </head>
-<body data-sly-use.youtube="org.apache.sling.samples.oauth_demo.YoutubeVideosModel">
-<h1>Search results</h1>
-<p>ERROR? ${youtube.response.error.message}</p>
-<p>Got ${youtube.response.items.size} results of out total ${youtube.response.pageInfo.totalResults}</p>
+<body class="bg-gray-100" 
+    data-sly-use.youtube="org.apache.sling.samples.oauth_demo.YoutubeVideosModel">
+    <div class="container bg-white rounded mx-auto my-4 p-8">
+        <h1 class="text-3xl mb-4 font-bold">Search results</h1>
+        <p class="mb-4">ERROR? ${youtube.response.error.message}</p>
+        <p class="mb-4">Got ${youtube.response.items.size} results of out total ${youtube.response.pageInfo.totalResults}</p>
+    </div>
 </body>
 </html>
