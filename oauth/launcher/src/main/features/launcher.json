@@ -13,5 +13,14 @@
     {
         "id":"org.apache.sling.samples/org.apache.sling.samples.oauth.ui.apps/1.0-SNAPSHOT/zip"
     }
-  ]
+  ],
+  "configurations": {
+      "org.apache.sling.extensions.oauth_client.impl.OidcConnectionImpl~google": {
+        "name": "google",
+        "baseUrl": "https://accounts.google.com",
+        "clientId": "$[secret:google/clientId]",
+        "clientSecret": "$[secret:google/clientSecret]",
+        "scopes": ["openid", "https://www.googleapis.com/auth/youtube.force-ssl"]
+    }
+  }
 }
