@@ -47,8 +47,6 @@ public class YoutubeHttpClient {
     
             String body = response.body();
             
-            System.out.println(body);
-            
             ObjectMapper mapper = new ObjectMapper();
             return mapper.reader().readValue(body, YoutubeSearchResponse.class);
         }
