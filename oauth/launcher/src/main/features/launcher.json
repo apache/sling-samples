@@ -21,6 +21,8 @@
         "clientId": "$[secret:google/clientId]",
         "clientSecret": "$[secret:google/clientSecret]",
         "scopes": ["openid", "https://www.googleapis.com/auth/youtube.force-ssl"]
+    },
+    "org.apache.sling.extensions.oauth_client.impl.JcrUserHomeOAuthTokenStore" : {
     }
   }
 }
