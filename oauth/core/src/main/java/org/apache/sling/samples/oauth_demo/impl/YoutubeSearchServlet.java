@@ -25,11 +25,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.request.RequestDispatcherOptions;
-import org.apache.sling.extensions.oidc_rp.OidcClient;
-import org.apache.sling.extensions.oidc_rp.OidcConnection;
-import org.apache.sling.extensions.oidc_rp.OidcToken;
-import org.apache.sling.extensions.oidc_rp.OidcTokenStore;
-import org.apache.sling.extensions.oidc_rp.support.OAuthEnabledSlingServlet;
+import org.apache.sling.extensions.oauth_client.OAuthToken;
+import org.apache.sling.extensions.oauth_client.OAuthTokenRefresher;
+import org.apache.sling.extensions.oauth_client.OAuthTokenStore;
+import org.apache.sling.extensions.oauth_client.OidcConnection;
+import org.apache.sling.extensions.oauth_client.support.OAuthEnabledSlingServlet;
 import org.apache.sling.samples.oauth_demo.YoutubeSearchResponse;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
 import org.jetbrains.annotations.NotNull;
@@ -44,7 +44,7 @@ public class YoutubeSearchServlet extends OAuthEnabledSlingServlet {
     private static final long serialVersionUID = 1L;
     
     @Activate
-    public YoutubeSearchServlet(@Reference OidcConnection connection, @Reference OidcTokenStore tokenStore, @Reference OidcClient oidcClient) {
+    public YoutubeSearchServlet(@Reference OidcConnection connection, @Reference OAuthTokenStore tokenStore, @Reference OAuthTokenRefresher oidcClient) {
         super(connection, tokenStore, oidcClient);
     }
 
@@ -55,7 +55,7 @@ public class YoutubeSearchServlet extends OAuthEnabledSlingServlet {
 
     @Override
     protected void doGetWithToken(@NotNull SlingHttpServletRequest request, @NotNull SlingHttpServletResponse response,
-            OidcToken token) throws IOException, ServletException {
+            OAuthToken token) throws IOException, ServletException {
 
         try {
             String search = request.getParameter("search");

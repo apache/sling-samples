@@ -59,7 +59,7 @@
                             <filesInclude>*.json</filesInclude>
                             <includeArtifact>
                                 <groupId>org.apache.sling</groupId>
-                                <artifactId>org.apache.sling.extensions.oidc-rp</artifactId>
+                                <artifactId>org.apache.sling.extensions.oauth-client</artifactId>
                                 <classifier>app</classifier>
                                 <version>0.1-SNAPSHOT</version>
                                 <type>slingosgifeature</type>
