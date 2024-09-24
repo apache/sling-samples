@@ -24,55 +24,54 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
-import org.apache.sling.api.request.RequestDispatcherOptions;
 import org.apache.sling.extensions.oauth_client.ClientConnection;
 import org.apache.sling.extensions.oauth_client.OAuthToken;
 import org.apache.sling.extensions.oauth_client.OAuthTokenRefresher;
 import org.apache.sling.extensions.oauth_client.OAuthTokenStore;
 import org.apache.sling.extensions.oauth_client.support.OAuthEnabledSlingServlet;
-import org.apache.sling.samples.oauth_demo.YoutubeSearchResponse;
-import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
+import org.apache.sling.samples.oauth_demo.GithubRepositoriesSearchResponse;
+import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.jetbrains.annotations.NotNull;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 @Component(service = { Servlet.class })
-@SlingServletResourceTypes(resourceTypes = "oauth-demo/components/youtube-videos", methods = "GET", extensions = "html")
-public class YoutubeSearchServlet extends OAuthEnabledSlingServlet {
+@SlingServletPaths("/bin/github/search")
+public class GithubSearchServlet extends OAuthEnabledSlingServlet {
 
-    private static final long serialVersionUID = 1L;
-    
     @Activate
-    public YoutubeSearchServlet(@Reference(target = "(name=google)") ClientConnection connection, @Reference OAuthTokenStore tokenStore, @Reference OAuthTokenRefresher oidcClient) {
+    public GithubSearchServlet(@Reference(target = "(name=github)") ClientConnection connection,
+            @Reference OAuthTokenStore tokenStore, @Reference OAuthTokenRefresher oidcClient) {
         super(connection, tokenStore, oidcClient);
     }
 
     @Override
-    protected @NotNull String getRedirectPath(@NotNull SlingHttpServletRequest request) {
-        return request.getRequestURI();
-    }
-
-    @Override
     protected void doGetWithToken(@NotNull SlingHttpServletRequest request, @NotNull SlingHttpServletResponse response,
-            OAuthToken token) throws IOException, ServletException {
+            OAuthToken token) throws ServletException, IOException {
 
-        try {
-            String search = request.getParameter("search");
-            if (search != null && !search.isBlank()) {
-                YoutubeHttpClient client = new YoutubeHttpClient();
-                YoutubeSearchResponse youtubeResponse = client.searchVideos(search, token.getValue());
-                request.setAttribute("ytResponse", youtubeResponse);
+        String search = request.getParameter("search");
+
+        if (search != null && !search.isBlank()) {
+            try {
+                GithubHttpClient client = new GithubHttpClient();
+                GithubRepositoriesSearchResponse repositories = client.searchRepositories(search, token.getValue());
+                
+                response.setContentType("text/plain");
+                response.getWriter().write("Repositories found: " + repositories.totalCount() + "\n\n");
+                repositories.items().forEach(repo -> {
+                    try {
+                        response.getWriter().write(repo.fullName() + "\n");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Please retry later");
             }
-            
-            RequestDispatcherOptions opts = new RequestDispatcherOptions();
-            opts.setReplaceSelectors("show");
-            
-            response.setContentType("text/html");
-            request.getRequestDispatcher(request.getResource(), opts).include(request, response);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Please retry later");
         }
+
     }
+
 }

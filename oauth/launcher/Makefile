@@ -13,11 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+DEBUG_FLAGS := -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
+export JAVA_OPTS := $(DEBUG_FLAGS)
+
 secrets/google/clientId:
 	@echo [WARN] $@ missing, OIDC config needs to be created manually
 
 secrets/google/clientSecret:
 	@echo [WARN] $@ missing, OIDC config needs to be created manually
+
+secrets/github/clientId:
+	@echo [WARN] $@ missing, OAuth config needs to be created manually
+
+secrets/github/clientSecret:
+	@echo [WARN] $@ missing, OAuth config needs to be created manually
 
 run: target/dependency/org.apache.sling.feature.launcher/bin/launcher secrets/google/clientId secrets/google/clientSecret
 	@echo '-------------------------------------------------------------------------------------------'
