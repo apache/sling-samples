@@ -46,9 +46,13 @@ public class GithubRepositoriesModel {
     public boolean needsLogin() {
         return getAccessToken().getState() != TokenState.VALID;
     }
+    
+    public String getSearch() {
+        return request.getParameter("search");
+    }
 
-    public boolean hasSearch() {
-        String searchParam = request.getParameter("search");
+    private boolean hasSearch() {
+        String searchParam = getSearch();
         
         return searchParam != null && searchParam.trim().length() > 0;
     }

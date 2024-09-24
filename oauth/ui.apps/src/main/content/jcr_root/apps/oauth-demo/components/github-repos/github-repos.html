@@ -10,7 +10,7 @@
         <header class="flex flex-row justify-between">
             <h1>GitHub Repositories</h1>
             <form>
-                <input type="text" id="search" name="search" value="${youtube.search}">
+                <input type="text" id="search" name="search" value="${github.search}">
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
             </form>
         </header>
@@ -29,8 +29,10 @@
             </div>
         </div>
         <div data-sly-test="${github.needsLogin}">
-            <p>Please <a href="${github.githubLoginUrl}">connect your account to github</a> to view the repositories.</p>
+            <p>Please <a class="underline" href="${github.githubLoginUrl}">connect your account to github</a> to view the repositories.</p>
         </div>
+        
+        <p>Back to the <a class="underline" href="../oauth-demo.html">main page</a>.</p>
     </main>
 </body>
 </html>
