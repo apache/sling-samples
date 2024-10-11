@@ -8,8 +8,16 @@
 <body>
     <main>
         <h1>Sling OAuth Demo</h1>
-        <p>Access the <a class="underline" href="oauth-demo/videos.html">YouTube videos</a> page.</p>
-        <p>Access the <a class="underline" href="oauth-demo/repositories.html">GitHub repositories</a> page.</p>
+        <sly data-sly-use.user="org.apache.sling.samples.oauth_demo.UserModel">
+            <div data-sly-test="${user.loggedIn}">
+                <p>Access the <a class="underline" href="oauth-demo/videos.html">YouTube videos</a> page.</p>
+                <p>Access the <a class="underline" href="oauth-demo/repositories.html">GitHub repositories</a> page.</p>
+                <p>If you prefer, you can <a href="/system/sling/logout.html?resource=${resource.path}.html" class="underline">log out</a>.</p>
+            </div>
+            <div data-sly-test="${!user.loggedIn}">
+                <p>Please <a href="/system/sling/login.html?resource=${resource.path}.html" class="underline">log in</a> to access the demo pages.</p>
+            </div>
+        </sly>
     </main>
 </body>
 </html>
