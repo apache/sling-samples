@@ -31,6 +31,17 @@
         "scopes": ["user:email"]
     },
     "org.apache.sling.extensions.oauth_client.impl.JcrUserHomeOAuthTokenStore" : {
+    },
+    "org.apache.sling.commons.crypto.internal.FilePasswordProvider~oauth": {
+        "path": "secrets/encrypt/password",
+        "fix.posixNewline": true
+    },
+    "org.apache.sling.commons.crypto.jasypt.internal.JasyptRandomIvGeneratorRegistrar~oauth": {
+       "algorithm": "SHA1PRNG"
+    },
+    "org.apache.sling.commons.crypto.jasypt.internal.JasyptStandardPbeStringCryptoService~oauth": {
+       "names": [ "sling-oauth" ],
+       "algorithm": "PBEWITHHMACSHA512ANDAES_256"
     }
   }
 }

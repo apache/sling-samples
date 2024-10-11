@@ -28,7 +28,10 @@ secrets/github/clientId:
 secrets/github/clientSecret:
 	@echo [WARN] $@ missing, OAuth config needs to be created manually
 
-run: target/dependency/org.apache.sling.feature.launcher/bin/launcher secrets/google/clientId secrets/google/clientSecret
+secrets/encrypt/password:
+	pwgen -s 32 1 > $@
+
+run: target/dependency/org.apache.sling.feature.launcher/bin/launcher secrets/google/clientId secrets/google/clientSecret secrets/encrypt/password
 	@echo '-------------------------------------------------------------------------------------------'
 	@echo '[NOTE] Launching application, this will fail if you did not build the project at least once'
 	@echo '[NOTE] Remove the launcher folder to throw away local changes'
