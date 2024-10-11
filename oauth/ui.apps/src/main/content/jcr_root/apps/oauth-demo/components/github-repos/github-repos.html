@@ -15,7 +15,7 @@
             </form>
         </header>
         <div data-sly-test="${github.searchResponse}">
-            <p>Repository count: ${github.searchResponse.totalCount}</p>
+            <p class="text-4xl text-center">Repository count: <span id="github-repo-count" data-repo-count="${github.searchResponse.totalCount}">0</span></p>
             <div data-sly-list.item="${github.searchResponse.items}"
                 class="flex flex-row flex-wrap">
                 <div class="basis-1/3">
@@ -27,6 +27,20 @@
                     </div>
                 </div>
             </div>
+            <script>
+                window.onload = function() {
+                    var countElement = document.getElementById('github-repo-count');
+                    var finalCount = parseInt(countElement.dataset.repoCount);
+                    var currentCount = 0;
+                    var interval = setInterval(function() {
+                        currentCount++;
+                        countElement.textContent = currentCount;
+                        if (currentCount >= finalCount) {
+                            clearInterval(interval);
+                        }
+                    }, 10);
+                };
+            </script>
         </div>
         <div data-sly-test="${github.needsLogin}">
             <p>Please <a class="underline" href="${github.githubLoginUrl}">connect your account to github</a> to view the repositories.</p>
