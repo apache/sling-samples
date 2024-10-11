@@ -1,9 +1,10 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/oauth-demo/static/css/output.css" rel="stylesheet">
+  <title>Sling OAuth Demo</title>
 </head>
 <body>
     <main>
@@ -18,6 +19,19 @@
                 <p>Please <a href="/system/sling/login.html?resource=${resource.path}.html" class="underline">log in</a> to access the demo pages.</p>
             </div>
         </sly>
+        
+        <h2>About the demo</h2>
+        <p>This application shows the expected basic usage of the <a class="underline" href="https://github.com/apache/sling-whiteboard/tree/master/org.apache.sling.servlets.oidc-rp"">Sling OAuth Client bundle (whiteboard)</a></em></p>
+        
+        <p>It exposes two pages:
+            <ul class="list-disc list-inside">
+                <li>The Youtube videos page ( <a class="underline" href="https://github.com/apache/sling-samples/tree/master/oauth/ui.apps/src/main/content/jcr_root/apps/oauth-demo/components/youtube-videos">oauth-demo/components/youtube-videos</a>), implemented using a Sling Servlet ( <a class="underline" href="https://github.com/apache/sling-samples/blob/master/oauth/core/src/main/java/org/apache/sling/samples/oauth_demo/impl/YoutubeSearchServlet.java">YoutubeSearchServlet</a>) </li>
+                <li>The GitHub repositories page ( <a class="underline" href="https://github.com/apache/sling-samples/tree/master/oauth/ui.apps/src/main/content/jcr_root/apps/oauth-demo/components/github-repos">oauth-demo/components/github-repos</a>), backed by a Sling Model ( <a class="underline" href="https://github.com/apache/sling-samples/blob/master/oauth/core/src/main/java/org/apache/sling/samples/oauth_demo/GithubRepositoriesModel.java">GithubRepositoriesModel</a>) </li>
+            </ul>
+        </p>
+        
+        <p>To use the application you will need to register this application as OAuth clients to Google and/or Github.</p>
+       
     </main>
 </body>
 </html>

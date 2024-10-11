@@ -829,6 +829,14 @@ p {
   flex-basis: 33.333333%;
 }
 
+.list-inside {
+  list-style-position: inside;
+}
+
+.list-disc {
+  list-style-type: disc;
+}
+
 .flex-row {
   flex-direction: row;
 }
