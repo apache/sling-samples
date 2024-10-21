@@ -20,7 +20,8 @@
         "baseUrl": "https://accounts.google.com",
         "clientId": "$[secret:google/clientId]",
         "clientSecret": "$[secret:google/clientSecret]",
-        "scopes": ["openid", "https://www.googleapis.com/auth/youtube.force-ssl"]
+        "scopes": ["openid", "https://www.googleapis.com/auth/youtube.force-ssl"],
+        "additionalAuthorizationParameters": ["prompt=consent"]
     },
     "org.apache.sling.extensions.oauth_client.impl.OAuthConnectionImpl~github": {
         "name": "github",
@@ -28,7 +29,8 @@
         "tokenEndpoint": "https://github.com/login/oauth/access_token",
         "clientId": "$[secret:github/clientId]",
         "clientSecret": "$[secret:github/clientSecret]",
-        "scopes": ["user:email"]
+        "scopes": ["user:email"],
+        "additionalAuthorizationParameters": ["prompt=select_account"]
     },
     "org.apache.sling.extensions.oauth_client.impl.JcrUserHomeOAuthTokenStore" : {
     },
