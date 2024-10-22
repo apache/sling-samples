@@ -1,133 +1,85 @@
-### Maven Project generated from Maven Archetype
+# Apache Sling OAuth client sample
 
-#### License
+This sample application demonstrates how the [Apache Sling OAuth client](https://github.com/apache/sling-whiteboard/tree/master/org.apache.sling.servlets.oidc-rp)
+bundle can be used. It does so by connecting the Google Cloud APIs using Open ID Connect and to
+the GitHub APIs using OAuth 2.0.
 
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+The application does not perform any sensitive operation or perform write actions using the
+tokens it retrieves on behalf of the user.
 
-    http://www.apache.org/licenses/LICENSE-2.0
+## Building
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+The build requires Java 17.
 
-#### Introduction
+First of all, you need to install a SNAPSHOT build of the OIDC client bundle, as it is still in the whiteboard.
 
-This project was created by the Full Project Sling Maven Archetype which created
-four modules:
+```
+$ git clone https://github.com/apache/sling-whiteboard
+$ cd org.apache.sling.servlets.oidc-rp
+$ mvn clean install
+```
 
-1. **core**: OSGi Bundle which is deployed as OSGi Bundle to Sling which includes your
-             Servlets, Filters, Sling Models and much more. This module is **not intended**
-             to contain Sling Content.
-2. **ui.apps**: JCR Content Module which is used to install a JCR Package into Sling
-                by using **Composum**. For that it must be installed and the Composum
-                Package Manager must be whitelisted.
-3. **launcher**: Feature model module which assembles a full application from the project
-                 which can then be launched using the included `./launch.sh` script
-4. **all**: This is another JCR Content Module but it is only used to install the
-            other two modules. 
+Then you can build the local application using
 
-There are also two more modules that provide some examples with the same name plus
-the **.example** extension. This modules should not be deployed as is but rather
-examples that you want to use should be copied to the core or ui.apps module.
-The structure of both modules are the same and so copying them over just be
-quite simple.
+```
+$ git clone https://github.com/apache/sling-samples
+$ cd oauth
+$ mvn clean install
+```
 
-#### Why the All Package
+## Configuring
 
-Most real projects have many different OSGi bundles, Content Packages, Configuration
-Modules and many more. Deploying them one by one is cumbersome and can lead to
-inconsitency and to a lot of overhead in a Continious Integration system.
-The **All** package allows you to deploy all theses artifacts in one swoop or it allows
-you to deploy them to multiple targets by just repeating the **All** deployment.
+> [!WARNING]
+> Do not commit the client ids and client secrets referenced below to Git, they are sensitive information.
 
-##### Adding a new Module
+### Google Cloud APIs
 
-If you create a new Maven module then you need to add them to the **All** POM as
-well to include them into the All deployment. These are the steps:
+Create a new Google Cloud project and generate client credentials for it. Follow the documentation from
+https://developers.google.com/identity/protocols/oauth2 and ensure that the application has access to
+the Youtube APIs using the `https://www.googleapis.com/auth/youtube.force-ssl` scope.
 
-1. Add the dependency to the new module in the All POM
-2. Add the module to the **maven-vault-plugin** definition
-    1. If this is a content package then into the **subPackages**
-    2. If this is an OSGi Bundle then into the **embeddeds**
+Obtain the client id and client secret and save them under
 
-##### Package Filter
+- `launcher/secrets/google/clientId`
+- `launcher/secrets/google/clientSecret`
 
-In any multi-content-package environment the developer needs to pay close attention
-to the **content filtering** in the **META-INF/vault/filter.xml** as this can lead
-to hard to detect issues. Please make sure that:
+### GitHub
 
-1. Exclude **/apps/&lt;apps-folder-name>/install** from any of your content package
-   as in that folder the **All** package is installing the bundles into
-2. Make sure that content packages are not removing each other contents. The rule is
-   that each content package has their own sub folder inside **/apps/&lt;apps-folder-name>**
-   and avoid overlap.
-3. Any shared folders like **overlays** need to be separated from each other.
-   It is a good idea to limit your filter to smallest subset possible to avoid
-   future issues if another package needs to place their overlays into the
-   same folder. 
+Create a new GitHub OAuth app and generate client credentials for it. Follow the documentation from 
+https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps . No special
+permissions are needed.
 
-The package filter is a **mask** that tells Sling which part of the JCR tree
-your package maintains and after the deployment that part of the JCR tree will
-be the same as in your package. All missing ndoes in Sling will be created, all
-existing nodes will be updated and all missing nodes in your package will be
-deleted in Sling.
+Obtain the client id and client secret and save them under
 
+- `launcher/secrets/github/clientId`
+- `launcher/secrets/github/clientSecret`
 
-#### Why a JCR Package instead of a Content Bundle
+## Launching
 
-There a several reasons to use a JCR Package instead of a Content Bundle
-but for the most important reason is that a JCR Package allows the **Sling
-Tooling** to update a single file rather than an entire Bundle and also
-to import a Node from Sling into the project.
+Change to the launcher directory and run `make run`.  This will check if the required secrets are
+defined, generate secrets on the fly for encryption and lanuch the application. If you do not have `automake`
+installed, see [Launching without a makefile](#launching-without-a-makefile) at the end of this
+document.
 
+Once the application starts up you can access the entry point at http://localhost:8080/oauth-demo.html.
+There will be instructions for logging in and links to access the available pages.
 
-#### Attention:
+![screenshot of the welcome page](demo-welcome.png)
 
-Due to the way Apache Maven Archetypes work both **example** modules are added
-to the parent POM's module list. Please **remove** them after you created them
-to avoid the installation of these modules into Sling.
-At the end of the parent POM you will find the lines below. Remove the lines
-with **core.example** and **ui.apps.example**.
+### Launching without a Makefile
 
-    <modules>
-        <module>core</module>
-        <module>core.example</module>
-        <module>ui.apps</module>
-        <module>ui.apps.example</module>
-        <module>launcher</module>
-        <module>all</module>
-    </modules>
+If you do not have make installed you can also manually run following commands:
 
-#### Build and Installation
+To initialise the encryption secrets, only needed once:
 
-The project is built quite simple:
+```
+$ openssl rand  -hex 32 > secrets/encrypt/password
+```
 
-    mvn clean install
-    
-To install the project **autoInstallAll**:
+To run the application:
 
-    mvn clean install -P autoInstallAll
-
-##### ATTENTION
-
-It is not a good idea to deploy code with both approaches.
-Choose one and stick with it as you can either loose a bundle
-or the bundle is not updated during installation.
-
-In case of a mishape the package and bundles needs to deinstalled
-manullay:
-
-1. Remove /apps/${appsFolderName}/install folder
-2. Uninstall the package using the package manager
-3. Remove the package from /etc/packages including the snapshots if they are still there
-4. Remove the Bundle using the OSGi Console (/system/console/bundles)
-
+```
+$ target/dependency/org.apache.sling.feature.launcher/bin/launcher \
+    -f target/slingfeature-tmp/feature-app.json \
+    -D org.apache.felix.configadmin.plugin.interpolation.secretsdir=secrets
+```
