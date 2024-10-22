@@ -66,6 +66,14 @@ There will be instructions for logging in and links to access the available page
 
 ![screenshot of the welcome page](demo-welcome.png)
 
+### Reducing number of login prompts
+
+For demo purposes the two connections are configured to always prompt the user to log in or select
+an account. The number login prompts can be reduced by removing the "prompt=..." values from the
+`additionalAuthorizationParameters` configuration values defined in [launcher/src/main/features/launcher.json](launcher/src/main/features/launcher.json).
+
+The property can be removed completely if it is empty.
+
 ### Launching without a Makefile
 
 If you do not have make installed you can also manually run following commands:
