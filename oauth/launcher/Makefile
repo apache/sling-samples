@@ -29,6 +29,7 @@ secrets/github/clientSecret:
 	@echo [WARN] $@ missing, OAuth config needs to be created manually
 
 secrets/encrypt/password:
+	mkdir -p secrets/encrypt
 	openssl rand  -hex 32 > $@
 
 run: target/dependency/org.apache.sling.feature.launcher/bin/launcher secrets/google/clientId secrets/google/clientSecret secrets/encrypt/password
