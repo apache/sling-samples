@@ -2135,7 +2135,7 @@
         
         
         
-        <version>$[javax.inject.version</version>
+        <version>${javax.inject.version}</version>
                                                                 
         
         
