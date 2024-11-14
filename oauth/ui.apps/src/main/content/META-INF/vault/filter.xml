@@ -36,4 +36,8 @@
     <filter root="/apps/oauth-demo">
         <exclude pattern="/apps/oauth-demo/install/.*"/>
     </filter>
+    <filter root="/apps/sling/servlet/errorhandler">
+        <include pattern="/apps/sling/servlet/errorhandler/OAuthCallbackException.html"/>
+        <include pattern="/apps/sling/servlet/errorhandler/OAuthEntryPointException.html"/>
+    </filter>
 </workspaceFilter>

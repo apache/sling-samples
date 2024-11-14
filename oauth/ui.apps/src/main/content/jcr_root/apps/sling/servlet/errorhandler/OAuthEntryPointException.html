@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/oauth-demo/static/css/output.css" rel="stylesheet">
+  <link rel="icon" href="/oauth-demo/static/favicon.ico">
+  <title>OAuth Error</title>
+</head>
+<body>
+    <main data-sly-use.errorHolder="org.apache.sling.samples.oauth_demo.ErrorHolderModel">
+        <div class="bg-red-100 rounded border border-red-400 text-red-700 py-2 px-4">
+            <h1>Error while starting the OAuth process</h1>
+            <p>${errorHolder.message}.</p>
+        </div>
+        
+        <a class="underline" href="/">Return to the main page and try again.</a>
+    </main>
+</body>
+</html>
