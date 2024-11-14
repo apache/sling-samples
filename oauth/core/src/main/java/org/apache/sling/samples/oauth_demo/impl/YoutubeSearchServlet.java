@@ -73,6 +73,13 @@ public class YoutubeSearchServlet extends OAuthEnabledSlingServlet {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Please retry later");
+        } catch (YoutubeApiException e) {
+            throw new ServletException(e);
         }
+    }
+    
+    @Override
+    protected boolean isInvalidAccessTokenException(Exception e) {
+        return e.getCause() instanceof InvalidAccessTokenException;
     }
 }

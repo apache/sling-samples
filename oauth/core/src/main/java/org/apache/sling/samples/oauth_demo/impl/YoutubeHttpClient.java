@@ -33,7 +33,7 @@ public class YoutubeHttpClient {
     
     public static final String API_BASE = "https://youtube.googleapis.com/youtube/v3";
     
-    public YoutubeSearchResponse searchVideos(String query, String accessToken) throws IOException, InterruptedException {
+    public YoutubeSearchResponse searchVideos(String query, String accessToken) throws IOException, InterruptedException, YoutubeApiException {
         
         try ( HttpClient client = HttpClient.newHttpClient() ) {
             query = URLEncoder.encode(query.trim(), StandardCharsets.UTF_8);
@@ -48,7 +48,14 @@ public class YoutubeHttpClient {
             String body = response.body();
             
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.reader().readValue(body, YoutubeSearchResponse.class);
+            
+            YoutubeSearchResponse apiResponse = mapper.reader().readValue(body, YoutubeSearchResponse.class);
+
+            if ( response.statusCode() == 401 ) {
+                throw YoutubeApiException.fromError(apiResponse.error());
+            }
+            
+            return apiResponse;
         }
     }        
 }
