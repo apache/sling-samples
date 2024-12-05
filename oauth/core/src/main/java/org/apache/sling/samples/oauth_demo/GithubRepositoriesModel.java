@@ -20,11 +20,11 @@ import java.io.IOException;
 import java.net.URI;
 
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.extensions.oauth_client.ClientConnection;
-import org.apache.sling.extensions.oauth_client.OAuthToken;
-import org.apache.sling.extensions.oauth_client.OAuthTokenStore;
-import org.apache.sling.extensions.oauth_client.OAuthUris;
-import org.apache.sling.extensions.oauth_client.TokenState;
+import org.apache.sling.auth.oauth_client.ClientConnection;
+import org.apache.sling.auth.oauth_client.OAuthToken;
+import org.apache.sling.auth.oauth_client.OAuthTokenStore;
+import org.apache.sling.auth.oauth_client.OAuthUris;
+import org.apache.sling.auth.oauth_client.TokenState;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;

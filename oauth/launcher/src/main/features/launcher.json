@@ -5,7 +5,7 @@
         "start-order": 25
     },
     {
-        "id": "org.apache.sling/org.apache.sling.extensions.oauth-client/0.1-SNAPSHOT",
+        "id": "org.apache.sling/org.apache.sling.auth.oauth-client/0.1-SNAPSHOT",
         "start-order": 24
     }
   ],
@@ -15,7 +15,7 @@
     }
   ],
   "configurations": {
-      "org.apache.sling.extensions.oauth_client.impl.OidcConnectionImpl~google": {
+      "org.apache.sling.auth.oauth_client.impl.OidcConnectionImpl~google": {
         "name": "google",
         "baseUrl": "https://accounts.google.com",
         "clientId": "$[secret:google/clientId]",
@@ -23,7 +23,7 @@
         "scopes": ["openid", "https://www.googleapis.com/auth/youtube.force-ssl"],
         "additionalAuthorizationParameters": ["prompt=consent"]
     },
-    "org.apache.sling.extensions.oauth_client.impl.OAuthConnectionImpl~github": {
+    "org.apache.sling.auth.oauth_client.impl.OAuthConnectionImpl~github": {
         "name": "github",
         "authorizationEndpoint": "https://github.com/login/oauth/authorize",
         "tokenEndpoint": "https://github.com/login/oauth/access_token",
@@ -32,7 +32,7 @@
         "scopes": ["user:email"],
         "additionalAuthorizationParameters": ["prompt=select_account"]
     },
-    "org.apache.sling.extensions.oauth_client.impl.JcrUserHomeOAuthTokenStore" : {
+    "org.apache.sling.auth.oauth_client.impl.JcrUserHomeOAuthTokenStore" : {
     },
     "org.apache.sling.commons.crypto.internal.FilePasswordProvider~oauth": {
         "path": "secrets/encrypt/password",

@@ -1,6 +1,6 @@
 # Apache Sling OAuth client sample
 
-This sample application demonstrates how the [Apache Sling OAuth client](https://github.com/apache/sling-whiteboard/tree/master/org.apache.sling.servlets.oidc-rp)
+This sample application demonstrates how the [Apache Sling OAuth client](https://github.com/apache/sling-org-apache-sling-auth-oauth-client)
 bundle can be used. It does so by connecting the Google Cloud APIs using Open ID Connect and to
 the GitHub APIs using OAuth 2.0.
 
@@ -11,11 +11,11 @@ tokens it retrieves on behalf of the user.
 
 The build requires Java 17.
 
-First of all, you need to install a SNAPSHOT build of the OIDC client bundle, as it is still in the whiteboard.
+First of all, you need to install a SNAPSHOT build of the OAuth client bundle, as it is still in the whiteboard.
 
 ```
-$ git clone https://github.com/apache/sling-whiteboard
-$ cd org.apache.sling.servlets.oidc-rp
+$ git clone https://github.com/apache/sling-org-apache-sling-auth-oauth-client
+$ cd sling-org-apache-sling-auth-oauth-client
 $ mvn clean install
 ```
 
