@@ -26,9 +26,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.request.RequestDispatcherOptions;
 import org.apache.sling.auth.oauth_client.ClientConnection;
-import org.apache.sling.auth.oauth_client.OAuthToken;
-import org.apache.sling.auth.oauth_client.OAuthTokenRefresher;
-import org.apache.sling.auth.oauth_client.OAuthTokenStore;
+import org.apache.sling.auth.oauth_client.OAuthTokenAccess;
 import org.apache.sling.auth.oauth_client.support.OAuthEnabledSlingServlet;
 import org.apache.sling.samples.oauth_demo.YoutubeSearchResponse;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
@@ -44,8 +42,8 @@ public class YoutubeSearchServlet extends OAuthEnabledSlingServlet {
     private static final long serialVersionUID = 1L;
     
     @Activate
-    public YoutubeSearchServlet(@Reference(target = "(name=google)") ClientConnection connection, @Reference OAuthTokenStore tokenStore, @Reference OAuthTokenRefresher oidcClient) {
-        super(connection, tokenStore, oidcClient);
+    public YoutubeSearchServlet(@Reference(target = "(name=google)") ClientConnection connection, @Reference OAuthTokenAccess tokenAccess) {
+        super(connection, tokenAccess);
     }
 
     @Override
@@ -55,13 +53,13 @@ public class YoutubeSearchServlet extends OAuthEnabledSlingServlet {
 
     @Override
     protected void doGetWithToken(@NotNull SlingHttpServletRequest request, @NotNull SlingHttpServletResponse response,
-            OAuthToken token) throws IOException, ServletException {
+            String accessToken) throws IOException, ServletException {
 
         try {
             String search = request.getParameter("search");
             if (search != null && !search.isBlank()) {
                 YoutubeHttpClient client = new YoutubeHttpClient();
-                YoutubeSearchResponse youtubeResponse = client.searchVideos(search, token.getValue());
+                YoutubeSearchResponse youtubeResponse = client.searchVideos(search, accessToken);
                 request.setAttribute("ytResponse", youtubeResponse);
             }
             

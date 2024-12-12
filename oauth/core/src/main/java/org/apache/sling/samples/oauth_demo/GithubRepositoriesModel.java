@@ -19,12 +19,12 @@ package org.apache.sling.samples.oauth_demo;
 import java.io.IOException;
 import java.net.URI;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.auth.oauth_client.ClientConnection;
-import org.apache.sling.auth.oauth_client.OAuthToken;
-import org.apache.sling.auth.oauth_client.OAuthTokenStore;
-import org.apache.sling.auth.oauth_client.OAuthUris;
-import org.apache.sling.auth.oauth_client.TokenState;
+import org.apache.sling.auth.oauth_client.OAuthTokenAccess;
+import org.apache.sling.auth.oauth_client.OAuthTokenResponse;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
@@ -41,10 +41,17 @@ public class GithubRepositoriesModel {
     private ClientConnection connection;
     
     @OSGiService
-    private OAuthTokenStore tokenStore;
+    private OAuthTokenAccess tokenAccess;
+
+    private OAuthTokenResponse tokenResponse;
+    
+    @PostConstruct
+    public void initToken() {
+        tokenResponse = tokenAccess.getAccessToken(connection, request, request.getRequestURI());
+    }
     
     public boolean needsLogin() {
-        return getAccessToken().getState() != TokenState.VALID;
+        return !tokenResponse.hasValidToken();
     }
     
     public String getSearch() {
@@ -57,20 +64,18 @@ public class GithubRepositoriesModel {
         return searchParam != null && searchParam.trim().length() > 0;
     }
     
-    private OAuthToken getAccessToken() {
-        return tokenStore.getAccessToken(connection, request.getResourceResolver());
-    }
-    
     public GithubRepositoriesSearchResponse getSearchResponse() throws IOException, InterruptedException {
-        if ( hasSearch() ) {
-            return new GithubHttpClient().searchRepositories(request.getParameter("search"), getAccessToken().getValue());
+        if ( hasSearch() && tokenResponse.hasValidToken() ) {
+            return new GithubHttpClient().searchRepositories(request.getParameter("search"), tokenResponse.getTokenValue());
         }
         
         return null;
     }
     
     public URI getGithubLoginUrl() {
-        return OAuthUris.getOidcEntryPointUri(connection, request, request.getRequestURI());
+        if (needsLogin())
+            return tokenResponse.getRedirectUri();
+        return null;
     }
 
 }
