@@ -61,7 +61,7 @@
                                 <groupId>org.apache.sling</groupId>
                                 <artifactId>org.apache.sling.auth.oauth-client</artifactId>
                                 <classifier>app</classifier>
-                                <version>0.1-SNAPSHOT</version>
+                                <version>0.1.1-SNAPSHOT</version>
                                 <type>slingosgifeature</type>
                             </includeArtifact>
                        </aggregate>

@@ -5,7 +5,7 @@
         "start-order": 25
     },
     {
-        "id": "org.apache.sling/org.apache.sling.auth.oauth-client/0.1-SNAPSHOT",
+        "id": "org.apache.sling/org.apache.sling.auth.oauth-client/0.1.1-SNAPSHOT",
         "start-order": 24
     }
   ],
