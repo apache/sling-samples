@@ -22,21 +22,18 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.sling</groupId>
-        <artifactId>sling</artifactId>
-        <version>26</version>
-        <relativePath/>
+        <artifactId>sling-bundle-parent</artifactId>
+        <version>61</version>
+        <relativePath />
     </parent>
 
     <groupId>org.apache.sling.samples</groupId>
     <artifactId>org.apache.sling.samples.custom-login-form</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>bundle</packaging>
 
     <name>Apache Sling Sample Custom Login Form</name>
-    <description>
-        This bundle is a fragment attached to the Sling FormAuth bundle and provides
-        a simple customized login form.
-    </description>
+    <description>This bundle is a fragment attached to the Sling FormAuth bundle and provides
+        a simple customized login form.</description>
 
     <scm>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</connection>
@@ -44,17 +41,18 @@
         <url>https://gitbox.apache.org/repos/asf?p=sling-samples.git</url>
     </scm>
 
+    <properties>
+        <sling.java.version>11</sling.java.version>
+    </properties>
+
     <build>
         <plugins>
-            <!-- Bundling the project -->
             <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-baseline-maven-plugin</artifactId>
+                <version>6.4.0</version>
                 <configuration>
-                    <instructions>
-                        <Fragment-Host>org.apache.sling.auth.form</Fragment-Host>
-                    </instructions>
+                    <failOnMissing>false</failOnMissing>
                 </configuration>
             </plugin>
         </plugins>
