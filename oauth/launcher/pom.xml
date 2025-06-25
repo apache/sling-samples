@@ -59,9 +59,16 @@
                             <filesInclude>*.json</filesInclude>
                             <includeArtifact>
                                 <groupId>org.apache.sling</groupId>
+                                <artifactId>org.apache.sling.starter</artifactId>
+                                <classifier>oak_tar</classifier>
+                                <version>13</version>
+                                <type>slingosgifeature</type>
+                            </includeArtifact>
+                            <includeArtifact>
+                                <groupId>org.apache.sling</groupId>
                                 <artifactId>org.apache.sling.auth.oauth-client</artifactId>
-                                <classifier>app</classifier>
-                                <version>0.1.1-SNAPSHOT</version>
+                                <classifier>main</classifier>
+                                <version>0.1.3-SNAPSHOT</version>
                                 <type>slingosgifeature</type>
                             </includeArtifact>
                        </aggregate>

@@ -3,10 +3,6 @@
     {
         "id": "org.apache.sling.samples/org.apache.sling.samples.oauth.core/1.0-SNAPSHOT",
         "start-order": 25
-    },
-    {
-        "id": "org.apache.sling/org.apache.sling.auth.oauth-client/0.1.1-SNAPSHOT",
-        "start-order": 24
     }
   ],
   "content-packages:ARTIFACTS|required": [
@@ -29,7 +25,7 @@
         "tokenEndpoint": "https://github.com/login/oauth/access_token",
         "clientId": "$[secret:github/clientId]",
         "clientSecret": "$[secret:github/clientSecret]",
-        "scopes": ["user:email"],
+        "scopes": ["openid", "user:email"],
         "additionalAuthorizationParameters": ["prompt=select_account"]
     },
     "org.apache.sling.auth.oauth_client.impl.JcrUserHomeOAuthTokenStore" : {

@@ -11,7 +11,7 @@ tokens it retrieves on behalf of the user.
 
 The build requires Java 17.
 
-First of all, you need to install a SNAPSHOT build of the OAuth client bundle, as it is still in the whiteboard.
+First of all, you need to install a SNAPSHOT build of the OAuth client bundle that contains the latest fixes.
 
 ```
 $ git clone https://github.com/apache/sling-org-apache-sling-auth-oauth-client
