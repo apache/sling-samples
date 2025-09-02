@@ -31,7 +31,7 @@
     "org.apache.sling.auth.oauth_client.impl.OidcAuthenticationHandler~google": {
         "path": ["/content/oauth-demo/playlists", "/oauth-demo/playlists"],
         "sling.auth.requirements": "+/content/oauth-demo/playlists",
-        "callbackUri": "http://localhost:8080/oauth-demo/playlists/j_security_check",
+        "callbackUri": "http://localhost:8080/content/oauth-demo/playlists/j_security_check",
         "defaultConnectionName": "google",
         "idp": "idp-google"
     },
