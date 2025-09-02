@@ -28,7 +28,7 @@
         "scopes": ["openid", "user:email"],
         "additionalAuthorizationParameters": ["prompt=select_account"]
    },
-    "org.apache.sling.auth.oauth_client.impl.OidcAuthenticationHandler": {
+    "org.apache.sling.auth.oauth_client.impl.OidcAuthenticationHandler~google": {
         "path": "/content/oauth-demo/playlists",
         "sling.auth.requirements": "+/content/oauth-demo/playlists",
         "callbackUri": "http://localhost:8080/oauth-demo/playlists/j_security_check",
@@ -42,6 +42,9 @@
         "idp.name": "idp-google",
         "sync.handlerName": "handler-google"
     },
+    "org.apache.sling.auth.oauth_client.impl.SlingUserInfoProcessorImpl~google": {
+      "connection": "google"
+    },    
     "org.apache.sling.auth.oauth_client.impl.JcrUserHomeOAuthTokenStore": {
     },
     "org.apache.sling.commons.crypto.internal.FilePasswordProvider~oauth": {
