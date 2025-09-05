@@ -33,7 +33,7 @@
         "sling.auth.requirements": "+/content/oauth-demo/playlists",
         "callbackUri": "http://localhost:8080/content/oauth-demo/playlists/j_security_check",
         "defaultConnectionName": "google",
-        "idp": "oidc"
+        "idp": "idp-google"
     },
     "org.apache.jackrabbit.oak.spi.security.authentication.external.impl.DefaultSyncHandler~google": {
         "handler.name": "handler-google",
@@ -51,7 +51,7 @@
           "user.membershipNestingDepth": "1"        
     },
     "org.apache.jackrabbit.oak.spi.security.authentication.external.impl.ExternalLoginModuleFactory~google": {
-        "idp.name": "oidc",
+        "idp.name": "idp-google",
         "sync.handlerName": "handler-google"
     },
     "org.apache.sling.auth.oauth_client.impl.SlingUserInfoProcessorImpl~google": {
