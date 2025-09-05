@@ -56,7 +56,10 @@
     },
     "org.apache.sling.auth.oauth_client.impl.SlingUserInfoProcessorImpl~google": {
       "connection": "google"
-    },    
+    },
+    "org.apache.sling.auth.oauth_client.impl.SlingLoginCookieManager": {    
+       "idpName": "idp-google"
+    },
     "org.apache.sling.auth.oauth_client.impl.JcrUserHomeOAuthTokenStore": {
     },
     "org.apache.sling.commons.crypto.internal.FilePasswordProvider~oauth": {
