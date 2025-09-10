@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.apache.sling.sample.slingshot.ratings.impl;
+
 import org.apache.sling.sample.slingshot.ratings.RatingsService;
 import org.apache.sling.testing.mock.sling.junit.SlingContext;
 import org.junit.Rule;
