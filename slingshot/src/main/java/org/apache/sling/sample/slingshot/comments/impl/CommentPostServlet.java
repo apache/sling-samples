@@ -45,6 +45,7 @@ import org.slf4j.LoggerFactory;
   })
 public class CommentPostServlet extends SlingAllMethodsServlet {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

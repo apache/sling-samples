@@ -34,6 +34,8 @@
 
     <!-- Properties -->
     <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
       <!-- If you set this to true, the scripts are mounted through the file resource provider! -->
       <fileMount>false</fileMount>
     </properties>
