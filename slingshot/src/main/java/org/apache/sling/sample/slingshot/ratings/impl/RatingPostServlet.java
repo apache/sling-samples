@@ -18,6 +18,7 @@ package org.apache.sling.sample.slingshot.ratings.impl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serial;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;

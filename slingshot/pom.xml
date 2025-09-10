@@ -32,10 +32,12 @@
 
     <name>Apache Sling Sample Slingshot</name>
 
-    <!-- Properties -->
+        <!-- Properties -->
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+      <sling.java.version>17</sling.java.version>
+      <maven.compiler.source>17</maven.compiler.source>
+      <maven.compiler.target>17</maven.compiler.target>
+      <maven.compiler.release>17</maven.compiler.release>
       <!-- If you set this to true, the scripts are mounted through the file resource provider! -->
       <fileMount>false</fileMount>
     </properties>
