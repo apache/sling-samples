@@ -60,7 +60,7 @@ public class RatingPostServletTest {
 
         // Create test resource
         Resource testResource = context.create().resource("/content/slingshot/users/test/entries/entry1");
-        when(resourceResolver.getResource(anyString())).thenReturn(testResource);
+        when(resourceResolver.getResource("/content/slingshot/users/test/entries/entry1")).thenReturn(testResource);
 
         // Register services
         context.registerService(RatingsService.class, ratingsService);
