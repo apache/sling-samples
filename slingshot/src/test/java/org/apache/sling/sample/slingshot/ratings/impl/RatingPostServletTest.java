@@ -18,6 +18,9 @@
  */
 package org.apache.sling.sample.slingshot.ratings.impl;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
@@ -37,9 +40,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 public class RatingPostServletTest {
 
     @Rule
@@ -48,20 +48,20 @@ public class RatingPostServletTest {
     @Test
     @SuppressWarnings("deprecation") // Using deprecated Sling API for backward compatibility testing
     public void successfulSave() throws Exception {
-        
+
         // Mock the RatingsService
         RatingsService ratingsService = mock(RatingsService.class);
         when(ratingsService.getRating(any(Resource.class))).thenReturn(4.5);
-        
+
         // Mock the ResourceResolverFactory
         ResourceResolverFactory resourceResolverFactory = mock(ResourceResolverFactory.class);
         ResourceResolver resourceResolver = mock(ResourceResolver.class);
         when(resourceResolverFactory.getServiceResourceResolver(any())).thenReturn(resourceResolver);
-        
+
         // Create test resource
         Resource testResource = context.create().resource("/content/slingshot/users/test/entries/entry1");
         when(resourceResolver.getResource(anyString())).thenReturn(testResource);
-        
+
         // Register services
         context.registerService(RatingsService.class, ratingsService);
         context.registerService(ResourceResolverFactory.class, resourceResolverFactory);
@@ -71,37 +71,37 @@ public class RatingPostServletTest {
 
         // Verify the servlet can be instantiated and registered
         assertNotNull(servlet);
-        
+
         // Create mock request and response
         SlingHttpServletRequest request = mock(SlingHttpServletRequest.class);
         SlingHttpServletResponse response = mock(SlingHttpServletResponse.class);
-        
+
         // Set up request parameters
         when(request.getParameter(RatingsUtil.PROPERTY_RATING)).thenReturn("5.0");
         when(request.getRemoteUser()).thenReturn("testuser");
         when(request.getResource()).thenReturn(testResource);
-        
+
         // Set up response writer
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         when(response.getWriter()).thenReturn(writer);
-        
+
         // Execute the servlet POST method
         servlet.doPost(request, response);
-        
+
         // Verify interactions
         verify(ratingsService).setRating(any(Resource.class), anyString(), anyDouble());
         verify(ratingsService).getRating(any(Resource.class));
         verify(response).setContentType("application/json");
         verify(response).setCharacterEncoding("utf-8");
         verify(response).setStatus(200);
-        
+
         // Verify the JSON response contains the rating
         writer.flush();
         String responseContent = stringWriter.toString();
         assertNotNull(responseContent);
         // Basic check that response contains rating JSON structure
-        assert(responseContent.contains("rating"));
-        assert(responseContent.contains("4.5"));
+        assert (responseContent.contains("rating"));
+        assert (responseContent.contains("4.5"));
     }
 }
