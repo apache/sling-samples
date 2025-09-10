@@ -17,6 +17,7 @@
 package org.apache.sling.sample.slingshot.comments.impl;
 
 import java.io.IOException;
+import java.io.Serial;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
