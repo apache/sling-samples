@@ -19,9 +19,9 @@
 package org.apache.sling.scripting.api;
 
 /**
- * Mock implementation for testing purposes to resolve missing dependency
+ * Mock interface for testing purposes to resolve missing dependency
  * in Sling testing framework.
  */
-public class BindingsValuesProvidersByContext {
-    // Empty mock implementation for testing
+public interface BindingsValuesProvidersByContext {
+    // Empty mock interface for testing
 }
