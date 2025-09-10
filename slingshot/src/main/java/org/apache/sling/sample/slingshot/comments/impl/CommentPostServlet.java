@@ -18,19 +18,18 @@
  */
 package org.apache.sling.sample.slingshot.comments.impl;
 
-import javax.servlet.Servlet;
-import javax.servlet.ServletException;
-
 import java.io.IOException;
 import java.io.Serial;
 
-import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.SlingHttpServletResponse;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletException;
+import org.apache.sling.api.SlingJakartaHttpServletRequest;
+import org.apache.sling.api.SlingJakartaHttpServletResponse;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.apache.sling.api.servlets.SlingJakartaAllMethodsServlet;
 import org.apache.sling.sample.slingshot.comments.Comment;
 import org.apache.sling.sample.slingshot.comments.CommentsService;
 import org.apache.sling.sample.slingshot.comments.CommentsUtil;
@@ -47,7 +46,7 @@ import org.slf4j.LoggerFactory;
             "sling.servlet.extensions=comments",
             "sling.servlet.resourceTypes=" + StreamEntry.RESOURCETYPE
         })
-public class CommentPostServlet extends SlingAllMethodsServlet {
+public class CommentPostServlet extends SlingJakartaAllMethodsServlet {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -61,7 +60,7 @@ public class CommentPostServlet extends SlingAllMethodsServlet {
     private CommentsService commentsService;
 
     @Override
-    protected void doPost(final SlingHttpServletRequest request, final SlingHttpServletResponse response)
+    protected void doPost(final SlingJakartaHttpServletRequest request, final SlingJakartaHttpServletResponse response)
             throws ServletException, IOException {
         final String title = request.getParameter(CommentsUtil.PROPERTY_TITLE);
         final String text = request.getParameter(CommentsUtil.PROPERTY_TEXT);

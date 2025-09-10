@@ -101,7 +101,7 @@
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>6.0.0</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.jcr</groupId>
@@ -217,7 +217,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <!-- 
+                <!--
                 <configuration>
                     <testSourceDirectory>src/main/it</testSourceDirectory>
                 </configuration>

@@ -26,8 +26,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 @RunWith(Parameterized.class)
 public class UtilTest {
@@ -53,7 +53,6 @@ public class UtilTest {
 
     @Test
     public void filter() {
-
         assertThat(output, equalTo(Util.filter(input)));
     }
 }

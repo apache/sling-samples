@@ -18,7 +18,7 @@
  */
 package org.apache.sling.sample.slingshot;
 
-import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.SlingJakartaHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 
 public abstract class SlingshotUtil {
@@ -66,7 +66,7 @@ public abstract class SlingshotUtil {
      * @param request The request
      * @return {@code true} if it is a known user.
      */
-    public static boolean isUser(final SlingHttpServletRequest request) {
+    public static boolean isUser(final SlingJakartaHttpServletRequest request) {
         final boolean isUser =
                 request.getRemoteUser() != null && !request.getRemoteUser().equals("anonymous");
         return isUser;

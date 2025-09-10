@@ -18,20 +18,19 @@
  */
 package org.apache.sling.sample.slingshot.ratings.impl;
 
-import javax.servlet.Servlet;
-import javax.servlet.ServletException;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serial;
 
-import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.SlingHttpServletResponse;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletException;
+import org.apache.sling.api.SlingJakartaHttpServletRequest;
+import org.apache.sling.api.SlingJakartaHttpServletResponse;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.apache.sling.api.servlets.SlingJakartaAllMethodsServlet;
 import org.apache.sling.sample.slingshot.model.StreamEntry;
 import org.apache.sling.sample.slingshot.ratings.RatingsService;
 import org.apache.sling.sample.slingshot.ratings.RatingsUtil;
@@ -51,7 +50,7 @@ import org.slf4j.LoggerFactory;
             "sling.servlet.extensions=ratings",
             "sling.servlet.resourceTypes=" + StreamEntry.RESOURCETYPE
         })
-public class RatingPostServlet extends SlingAllMethodsServlet {
+public class RatingPostServlet extends SlingJakartaAllMethodsServlet {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -65,7 +64,7 @@ public class RatingPostServlet extends SlingAllMethodsServlet {
     private RatingsService ratingsService;
 
     @Override
-    protected void doPost(final SlingHttpServletRequest request, final SlingHttpServletResponse response)
+    protected void doPost(final SlingJakartaHttpServletRequest request, final SlingJakartaHttpServletResponse response)
             throws ServletException, IOException {
         final String rating = request.getParameter(RatingsUtil.PROPERTY_RATING);
         final String userId = request.getRemoteUser();
