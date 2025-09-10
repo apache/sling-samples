@@ -163,6 +163,7 @@
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.service.component.annotations</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!-- Apache Sling -->
         <dependency>
@@ -192,10 +193,12 @@
         <dependency>
         	<groupId>javax.jcr</groupId>
         	<artifactId>jcr</artifactId>
+        	<scope>provided</scope>
         </dependency>
         <dependency>
         	<groupId>org.slf4j</groupId>
         	<artifactId>slf4j-api</artifactId>
+        	<scope>provided</scope>
         </dependency>
         
         <!-- test dependencies -->
@@ -214,6 +217,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.sling</groupId>
@@ -236,6 +240,7 @@
         <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-simple</artifactId>
+          <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
