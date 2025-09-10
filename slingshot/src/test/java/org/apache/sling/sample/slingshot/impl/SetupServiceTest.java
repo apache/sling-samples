@@ -20,6 +20,7 @@ package org.apache.sling.sample.slingshot.impl;
 
 import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
+import javax.jcr.security.AccessControlException;
 
 import org.apache.jackrabbit.api.security.user.UserManager;
 import org.apache.sling.api.resource.Resource;
@@ -37,6 +38,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -79,12 +81,16 @@ public class SetupServiceTest {
         assertNotNull(resource.getChild("users/slingshot1").getChild("ugc"));
 
         // validate access control entries
-
         Session user = adminSession.impersonate(new SimpleCredentials("slingshot1", "slingshot1".toCharArray()));
 
-        assertThat(
-                user.hasPermission(
-                        SlingshotConstants.APP_ROOT_PATH + "/users/slingshot1/info", "read,add_node,set_property"),
-                equalTo(true));
+        // hasPermission method signature changed, using checkPermission instead which throws if no permission
+        try {
+            user.checkPermission(
+                    SlingshotConstants.APP_ROOT_PATH + "/users/slingshot1/info", "read,add_node,set_property");
+            // If no exception thrown, we have permissions
+        } catch (AccessControlException e) {
+            // Permission denied
+            fail("User should have permissions");
+        }
     }
 }
