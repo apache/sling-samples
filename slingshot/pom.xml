@@ -227,7 +227,7 @@
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.testing.sling-mock-oak</artifactId>
-            <version>3.0.4</version>
+            <version>4.0.0-1.62.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -239,7 +239,7 @@
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.testing.sling-mock</artifactId>
-            <version>3.5.2</version>
+            <version>4.0.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
