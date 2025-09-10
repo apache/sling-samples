@@ -1,16 +1,5 @@
 /*
- * Licensed to thimport java.util.HashMap;
-import java.util.Map;
-
-import org.apache.sling.sample.slingshot.SlingshotConstants;
-import org.apache.sling.sample.slingshot.ratings.RatingsService;
-import org.apache.sling.sample.slingshot.ratings.RatingsUtil;
-import org.apache.sling.testing.mock.sling.junit.SlingContext;
-import org.junit.Rule;
-import org.junit.Test;
-import org.mockito.Mockito;
-
-import static org.junit.Assert.assertNotNull;e Foundation (ASF) under one
+ * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
@@ -27,8 +16,6 @@ import static org.junit.Assert.assertNotNull;e Foundation (ASF) under one
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.sling.sample.slingshot.ratings.impl;
-
 import org.apache.sling.sample.slingshot.ratings.RatingsService;
 import org.apache.sling.testing.mock.sling.junit.SlingContext;
 import org.junit.Rule;
