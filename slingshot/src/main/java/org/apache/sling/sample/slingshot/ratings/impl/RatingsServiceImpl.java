@@ -1,18 +1,20 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.sling.sample.slingshot.ratings.impl;
 
@@ -34,7 +36,7 @@ import org.osgi.service.component.annotations.Component;
 /**
  * Implementation of the ratings service
  */
-@Component(service=RatingsService.class)
+@Component(service = RatingsService.class)
 public class RatingsServiceImpl implements RatingsService {
 
     /** The resource type for the rating holder. */
@@ -46,7 +48,7 @@ public class RatingsServiceImpl implements RatingsService {
     @Override
     public String getRatingsResourcePath(final Resource resource) {
         final String contentPath = SlingshotUtil.getContentPath(resource);
-        if ( contentPath != null ) {
+        if (contentPath != null) {
             final String fullPath = SlingshotConstants.APP_ROOT_PATH
                     + "/users/" + SlingshotUtil.getUserId(resource)
                     + "/ugc/ratings" + contentPath;
@@ -62,17 +64,17 @@ public class RatingsServiceImpl implements RatingsService {
     public double getRating(final Resource resource) {
         final String fullPath = getRatingsResourcePath(resource);
         float rating = 0;
-        if ( fullPath != null ) {
+        if (fullPath != null) {
             final Resource ratingsResource = resource.getChild(fullPath);
-            if ( ratingsResource != null ) {
+            if (ratingsResource != null) {
                 int count = 0;
-                for(final Resource r : ratingsResource.getChildren()) {
+                for (final Resource r : ratingsResource.getChildren()) {
                     final ValueMap vm = r.getValueMap();
                     final double current = vm.get(RatingsUtil.PROPERTY_RATING, 0.0);
                     rating += current;
                     count++;
                 }
-                if ( count > 0 ) {
+                if (count > 0) {
                     rating = rating / count;
                 }
             }
@@ -89,7 +91,7 @@ public class RatingsServiceImpl implements RatingsService {
         double rating = 0;
 
         final Resource r = resource.getResourceResolver().getResource(fullPath + "/" + userId);
-        if ( r != null ) {
+        if (r != null) {
             final ValueMap vm = r.getValueMap();
             rating = vm.get(RatingsUtil.PROPERTY_RATING, 0.0);
         }
@@ -101,16 +103,16 @@ public class RatingsServiceImpl implements RatingsService {
      */
     @Override
     public void setRating(final Resource resource, final String userId, final double rating)
-    throws PersistenceException {
-        final String ratingsPath = getRatingsResourcePath(resource) ;
+            throws PersistenceException {
+        final String ratingsPath = getRatingsResourcePath(resource);
 
         final Map<String, Object> props = new HashMap<String, Object>();
         props.put(ResourceResolver.PROPERTY_RESOURCE_TYPE, RESOURCETYPE_RATINGS);
-        final Resource ratingsResource = ResourceUtil.getOrCreateResource(resource.getResourceResolver(),
-                ratingsPath, props, null, true);
+        final Resource ratingsResource =
+                ResourceUtil.getOrCreateResource(resource.getResourceResolver(), ratingsPath, props, null, true);
 
         final Resource ratingRsrc = resource.getResourceResolver().getResource(ratingsResource, userId);
-        if ( ratingRsrc == null ) {
+        if (ratingRsrc == null) {
             props.clear();
             props.put(ResourceResolver.PROPERTY_RESOURCE_TYPE, RatingsUtil.RESOURCETYPE_RATING);
             props.put(RatingsUtil.PROPERTY_RATING, String.valueOf(rating));

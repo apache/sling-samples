@@ -34,7 +34,7 @@ public class Stream {
     }
 
     public StreamInfo getInfo() {
-        if ( info == null ) {
+        if (info == null) {
             info = new StreamInfo(this.resource == null ? null : this.resource.getChild("info"));
         }
         return info;

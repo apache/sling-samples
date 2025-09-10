@@ -32,121 +32,22 @@
 
     <name>Apache Sling Sample Slingshot</name>
 
-        <!-- Properties -->
-    <properties>
-      <sling.java.version>17</sling.java.version>
-      <maven.compiler.source>17</maven.compiler.source>
-      <maven.compiler.target>17</maven.compiler.target>
-      <maven.compiler.release>17</maven.compiler.release>
-      <!-- If you set this to true, the scripts are mounted through the file resource provider! -->
-      <fileMount>false</fileMount>
-    </properties>
-    
     <scm>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-samples.git</developerConnection>
+        <tag>HEAD</tag>
         <url>https://gitbox.apache.org/repos/asf?p=sling-samples.git</url>
-      <tag>HEAD</tag>
-  </scm>
+    </scm>
 
-    <build>
-        <plugins>
-            <!-- Bundling the sample project -->
-            <plugin>
-                <groupId>biz.aQute.bnd</groupId>
-                <artifactId>bnd-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>biz.aQute.bnd</groupId>
-                <artifactId>bnd-baseline-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.sling</groupId>
-                <artifactId>slingstart-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <id>attach-prov-model</id>
-                        <goals>
-                            <goal>attach-slingfeature</goal>
-                            <goal>attach-modelarchive</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <setFeatureVersions>true</setFeatureVersions>
-                    <attach>
-                        <type>jar</type>
-                    </attach>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.rat</groupId>
-                <artifactId>apache-rat-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>src/main/resources/SLING-INF/content/**/*.json</exclude>
-                        <exclude>src/main/resources/SLING-INF/content/slingshot/resources/css/*.css</exclude>
-                        <exclude>src/main/resources/SLING-INF/content/slingshot/resources/js/*.js</exclude>
-                        <exclude>src/main/resources/SLING-INF/content/slingshot/resources/fonts/*.svg</exclude>
-                        <exclude>src/test/resources/**.json</exclude>
-                        <exclude>**/*.woff2</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <!-- 
-                <configuration>
-                    <testSourceDirectory>src/main/it</testSourceDirectory>
-                </configuration>
-                 -->
-                <executions>
-                  <execution>
-                    <goals>
-                      <goal>integration-test</goal>
-                      <goal>verify</goal>
-                    </goals>
-                  </execution>
-                </executions>                
-            </plugin>
-        </plugins>
-        
-    </build>
-
-    <profiles>
-        <profile>
-            <!--
-                Use this profile to install the OSGi bundle
-                automatically, during development
-            -->
-            <id>autoInstallBundle</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.sling</groupId>
-                        <artifactId>maven-sling-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>install-bundle</id>
-                                <goals>
-                                    <goal>validate</goal>
-                                    <goal>install</goal>
-                                </goals>
-                                <configuration>
-                                    <mountByFS>${fileMount}</mountByFS>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+    <!-- Properties -->
+    <properties>
+        <sling.java.version>17</sling.java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
+        <!-- If you set this to true, the scripts are mounted through the file resource provider! -->
+        <fileMount>false</fileMount>
+    </properties>
 
     <dependencies>
         <!-- OSGi -->
@@ -196,16 +97,16 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-        	<groupId>javax.jcr</groupId>
-        	<artifactId>jcr</artifactId>
-        	<scope>provided</scope>
+            <groupId>javax.jcr</groupId>
+            <artifactId>jcr</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-        	<groupId>org.slf4j</groupId>
-        	<artifactId>slf4j-api</artifactId>
-        	<scope>provided</scope>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
         </dependency>
-        
+
         <!-- test dependencies -->
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -243,9 +144,108 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-simple</artifactId>
-          <scope>test</scope>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Bundling the sample project -->
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-baseline-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>slingstart-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <setFeatureVersions>true</setFeatureVersions>
+                    <attach>
+                        <type>jar</type>
+                    </attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-prov-model</id>
+                        <goals>
+                            <goal>attach-slingfeature</goal>
+                            <goal>attach-modelarchive</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.rat</groupId>
+                <artifactId>apache-rat-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>src/main/resources/SLING-INF/content/**/*.json</exclude>
+                        <exclude>src/main/resources/SLING-INF/content/slingshot/resources/css/*.css</exclude>
+                        <exclude>src/main/resources/SLING-INF/content/slingshot/resources/js/*.js</exclude>
+                        <exclude>src/main/resources/SLING-INF/content/slingshot/resources/fonts/*.svg</exclude>
+                        <exclude>src/test/resources/**.json</exclude>
+                        <exclude>**/*.woff2</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <!-- 
+                <configuration>
+                    <testSourceDirectory>src/main/it</testSourceDirectory>
+                </configuration>
+                 -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <profiles>
+        <profile>
+            <!--
+                Use this profile to install the OSGi bundle
+                automatically, during development
+            -->
+            <id>autoInstallBundle</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.sling</groupId>
+                        <artifactId>maven-sling-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>install-bundle</id>
+                                <goals>
+                                    <goal>validate</goal>
+                                    <goal>install</goal>
+                                </goals>
+                                <configuration>
+                                    <mountByFS>${fileMount}</mountByFS>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
