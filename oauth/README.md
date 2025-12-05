@@ -54,6 +54,17 @@ Obtain the client id and client secret and save them under
 - `launcher/secrets/github/clientId`
 - `launcher/secrets/github/clientSecret`
 
+### Spotify
+
+Create a new Spotify Developer app and generate client credentials for it. Follow the documentation from
+https://developer.spotify.com/documentation/web-api . No special permissions are needed.
+
+Obtain the client id and client secret and save them under
+
+- `launcher/secrets/spotify/clientId`
+- `launcher/secrets/spotify/clientSecret`
+
+
 ## Launching
 
 Change to the launcher directory and run `make run`.  This will check if the required secrets are

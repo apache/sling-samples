@@ -17,17 +17,19 @@
                 <p>If you prefer, you can <a href="/system/sling/logout.html?resource=${resource.path}.html" class="underline">log out</a>.</p>
             </div>
             <div data-sly-test="${!user.loggedIn}">
-                <p>Please <a href="/system/sling/login.html?resource=${resource.path}.html" class="underline">log in</a> to access the demo pages.</p>
+                <p>Access the <a class="underline" href="oauth-demo/playlists.html">Spotify playlists</a> page.</p>
+                <p>Please <a href="/system/sling/login.html?resource=${resource.path}.html" class="underline">log in</a> to access the other demo pages.</p>
             </div>
         </sly>
         
         <h2>About the demo</h2>
         <p>This application shows the expected basic usage of the <a class="underline" href="https://github.com/apache/sling-org-apache-sling-auth-oauth-client">Sling OAuth Client bundle</a></em></p>
         
-        <p>It exposes two pages:
+        <p>It exposes three pages:
             <ul class="list-disc list-inside">
                 <li>The Youtube videos page ( <a class="underline" href="https://github.com/apache/sling-samples/tree/master/oauth/ui.apps/src/main/content/jcr_root/apps/oauth-demo/components/youtube-videos">oauth-demo/components/youtube-videos</a>), implemented using a Sling Servlet ( <a class="underline" href="https://github.com/apache/sling-samples/blob/master/oauth/core/src/main/java/org/apache/sling/samples/oauth_demo/impl/YoutubeSearchServlet.java">YoutubeSearchServlet</a>) </li>
                 <li>The GitHub repositories page ( <a class="underline" href="https://github.com/apache/sling-samples/tree/master/oauth/ui.apps/src/main/content/jcr_root/apps/oauth-demo/components/github-repos">oauth-demo/components/github-repos</a>), backed by a Sling Model ( <a class="underline" href="https://github.com/apache/sling-samples/blob/master/oauth/core/src/main/java/org/apache/sling/samples/oauth_demo/GithubRepositoriesModel.java">GithubRepositoriesModel</a>) </li>
+                <li>The Spotify playlists page ( <a class="underline" href="https://github.com/apache/sling-samples/tree/master/oauth/ui.apps/src/main/content/jcr_root/apps/oauth-demo/components/spotify-playlists">oauth-demo/components/spotify-playlists</a>), implemented using a TODO</li>
             </ul>
         </p>
         
@@ -35,6 +37,7 @@
             <ul class="list-disc list-inside">
                 <li>Google: <a target="_blank" class="underline" href="https://developers.google.com/identity/protocols/oauth2">Using OAuth 2.0 to Access Google APIs </a></li>
                 <li>GitHub: <a target="_blank" class="underline" href="https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps">Authorizing OAuth Apps</a></li>
+                <li>Spotify: <a target="_blank" class="underline" href="https://developer.spotify.com/documentation/web-api/tutorials/getting-started">Getting started with Web API</a></li>
             </ul>
         </p>
        

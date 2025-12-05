@@ -16,7 +16,7 @@
         "baseUrl": "https://accounts.google.com",
         "clientId": "$[secret:google/clientId]",
         "clientSecret": "$[secret:google/clientSecret]",
-        "scopes": ["openid", "https://www.googleapis.com/auth/youtube.force-ssl"],
+        "scopes": ["openid", "https://www.googleapis.com/auth/youtube.force-ssl", "email", "profile"],
         "additionalAuthorizationParameters": ["prompt=consent"]
     },
     "org.apache.sling.auth.oauth_client.impl.OAuthConnectionImpl~github": {
@@ -27,8 +27,40 @@
         "clientSecret": "$[secret:github/clientSecret]",
         "scopes": ["openid", "user:email"],
         "additionalAuthorizationParameters": ["prompt=select_account"]
+   },
+    "org.apache.sling.auth.oauth_client.impl.OidcAuthenticationHandler~google": {
+        "path": ["/content/oauth-demo/playlists", "/oauth-demo/playlists"],
+        "sling.auth.requirements": "+/content/oauth-demo/playlists",
+        "callbackUri": "http://localhost:8080/content/oauth-demo/playlists/j_security_check",
+        "defaultConnectionName": "google",
+        "idp": "idp-google"
     },
-    "org.apache.sling.auth.oauth_client.impl.JcrUserHomeOAuthTokenStore" : {
+    "org.apache.jackrabbit.oak.spi.security.authentication.external.impl.DefaultSyncHandler~google": {
+        "handler.name": "handler-google",
+          "user.membershipExpTime":"1s",
+          "user.propertyMapping":[
+            "profile/givenName=profile/given_name",
+            "profile/familyName=profile/family_name",
+            "rep:fullname=profile/name",
+            "profile/email=profile/email",
+            "access_token=access_token",
+            "refresh_token=refresh_token"
+          ],
+          "user.pathPrefix":"google",
+          "group.pathPrefix": "google",
+          "user.membershipNestingDepth": "1"        
+    },
+    "org.apache.jackrabbit.oak.spi.security.authentication.external.impl.ExternalLoginModuleFactory~google": {
+        "idp.name": "idp-google",
+        "sync.handlerName": "handler-google"
+    },
+    "org.apache.sling.auth.oauth_client.impl.SlingUserInfoProcessorImpl~google": {
+      "connection": "google"
+    },
+    "org.apache.sling.auth.oauth_client.impl.SlingLoginCookieManager": {    
+       "idpName": "idp-google"
+    },
+    "org.apache.sling.auth.oauth_client.impl.JcrUserHomeOAuthTokenStore": {
     },
     "org.apache.sling.commons.crypto.internal.FilePasswordProvider~oauth": {
         "path": "secrets/encrypt/password",

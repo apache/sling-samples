@@ -28,6 +28,13 @@ secrets/github/clientId:
 secrets/github/clientSecret:
 	@echo [WARN] $@ missing, OAuth config needs to be created manually
 
+secrets/spotify/clientId:
+	@echo [WARN] $@ missing, OIDC config needs to be created manually
+
+secrets/spotify/clientSecret:
+	@echo [WARN] $@ missing, OIDC config needs to be created manually
+
+
 secrets/encrypt/password:
 	mkdir -p secrets/encrypt
 	openssl rand  -hex 32 > $@

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/oauth-demo/static/css/output.css" rel="stylesheet">
+  <link rel="icon" href="/oauth-demo/static/favicon.ico">
+  <title>Spotify Playlists</title>
+</head>
+<body data-sly-use.youtube="org.apache.sling.samples.oauth_demo.YoutubeVideosModel">
+    <main>
+        <header class="flex flex-row justify-between">
+            <h1>Spotify Playlists</h1>
+        </header>
+        <sly data-sly-use.user="org.apache.sling.samples.oauth_demo.UserModel">
+            User logged in: ${user.loggedIn}<br/>
+            User id: ${user.userId} <br/>
+            Auth type: ${user.authType} <br/>
+        </sly>
+        <p>Not implemented.</p>
+        <p>Back to the <a class="underline" href="../oauth-demo.html">main page</a>.</p>
+    </main>
+</body>
+</html>

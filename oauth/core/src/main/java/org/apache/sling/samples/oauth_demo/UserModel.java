@@ -29,4 +29,12 @@ public class UserModel {
     public boolean isLoggedIn() {
         return request.getAuthType() != null;
     }
+    
+    public String getAuthType() {
+        return request.getAuthType();
+    }
+    
+    public String getUserId() {
+        return request.getRemoteUser();
+    }
 }
