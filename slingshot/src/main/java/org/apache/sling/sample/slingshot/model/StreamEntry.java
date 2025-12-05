@@ -41,8 +41,8 @@ public class StreamEntry extends PropertiesSupport {
 
     public String getTitle() {
         String value = this.getProperties().get(PROPERTY_TITLE, String.class);
-        if ( value == null ) {
-            if ( resource != null ) {
+        if (value == null) {
+            if (resource != null) {
                 value = resource.getName();
             } else {
                 value = "No Title";
@@ -57,12 +57,12 @@ public class StreamEntry extends PropertiesSupport {
     }
 
     public Stream getStream() {
-        if ( this.stream == null ) {
-            if ( resource == null ) {
+        if (this.stream == null) {
+            if (resource == null) {
                 stream = new Stream(null);
             } else {
                 Resource rsrc = this.resource.getParent();
-                while (rsrc != null && !rsrc.isResourceType(Stream.RESOURCETYPE) ) {
+                while (rsrc != null && !rsrc.isResourceType(Stream.RESOURCETYPE)) {
                     rsrc = rsrc.getParent();
                 }
                 stream = new Stream(rsrc);

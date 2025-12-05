@@ -33,8 +33,8 @@ public abstract class PropertiesSupport {
     }
 
     protected ValueMap getProperties() {
-        if ( this.properties == null ) {
-            if ( this.resource == null ) {
+        if (this.properties == null) {
+            if (this.resource == null) {
                 this.properties = ResourceUtil.getValueMap(null);
             } else {
                 this.properties = resource.getValueMap();
@@ -42,5 +42,4 @@ public abstract class PropertiesSupport {
         }
         return this.properties;
     }
-
 }

@@ -1,26 +1,28 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.sling.sample.slingshot.impl;
+
+import javax.jcr.RepositoryException;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.jcr.RepositoryException;
 
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ModifiableValueMap;
@@ -51,20 +53,18 @@ public class SetupService {
 
     private static final String[] USERS = new String[] {"slingshot1", "slingshot2"};
 
-    private static final String[] FOLDERS = new String[] {
-        "info",
-        "settings",
-        "ugc"};
+    private static final String[] FOLDERS = new String[] {"info", "settings", "ugc"};
 
     @Activate
-    protected void activate(final BundleContext bc) throws IOException, LoginException, PersistenceException, RepositoryException {
+    protected void activate(final BundleContext bc)
+            throws IOException, LoginException, PersistenceException, RepositoryException {
         logger.info("Setting up SlingShot...");
         ResourceResolver resolver = null;
         try {
             resolver = this.factory.getServiceResourceResolver(null);
             setupContent(resolver);
         } finally {
-            if ( resolver != null ) {
+            if (resolver != null) {
                 resolver.close();
             }
         }
@@ -73,27 +73,27 @@ public class SetupService {
 
     private void setupContent(final ResourceResolver resolver) throws PersistenceException {
         final Resource root = resolver.getResource(SlingshotConstants.APP_ROOT_PATH);
-        if ( root != null ) {
+        if (root != null) {
             // fix resource type of root folder
-            if ( !root.isResourceType(InternalConstants.RESOURCETYPE_HOME)) {
+            if (!root.isResourceType(InternalConstants.RESOURCETYPE_HOME)) {
                 final ModifiableValueMap mvm = root.adaptTo(ModifiableValueMap.class);
                 mvm.put(ResourceResolver.PROPERTY_RESOURCE_TYPE, InternalConstants.RESOURCETYPE_HOME);
                 resolver.commit();
             }
             final Resource usersResource = root.getChild("users");
-            for(final String userName : USERS) {
+            for (final String userName : USERS) {
                 Resource homeResource = resolver.getResource(usersResource, userName);
-                if ( homeResource == null ) {
+                if (homeResource == null) {
                     final Map<String, Object> props = new HashMap<String, Object>();
                     props.put(ResourceResolver.PROPERTY_RESOURCE_TYPE, User.RESOURCETYPE);
                     homeResource = resolver.create(usersResource, userName, props);
                     resolver.commit();
                 }
-                for(final String def : FOLDERS) {
+                for (final String def : FOLDERS) {
                     final int index = def.indexOf(':');
                     final String name;
                     final String rt;
-                    if ( index == -1 ) {
+                    if (index == -1) {
                         name = def;
                         rt = "sling:OrderedFolder";
                     } else {
@@ -101,7 +101,7 @@ public class SetupService {
                         rt = def.substring(index + 1);
                     }
                     final Resource rsrc = resolver.getResource(homeResource, name);
-                    if ( rsrc == null ) {
+                    if (rsrc == null) {
                         final Map<String, Object> props = new HashMap<String, Object>();
                         props.put(ResourceResolver.PROPERTY_RESOURCE_TYPE, rt);
                         resolver.create(homeResource, name, props);
