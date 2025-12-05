@@ -116,15 +116,9 @@
                         </goals>
                         <configuration>
                             <bnd><![CDATA[
-Bundle-SymbolicName: ${project.artifactId}
-Bundle-Version: ${project.version}
 -includeresource: \
-    @nashorn-core-15.6.jar!/!META-INF/MANIFEST.MF,\
-    @asm-9.7.jar!/!META-INF/MANIFEST.MF,\
-    @asm-commons-9.7.jar!/!META-INF/MANIFEST.MF,\
-    @asm-tree-9.7.jar!/!META-INF/MANIFEST.MF,\
-    @asm-util-9.7.jar!/!META-INF/MANIFEST.MF,\
-    @asm-analysis-9.7.jar!/!META-INF/MANIFEST.MF
+    @nashorn-core-*.jar!/!META-INF/MANIFEST.MF,\
+    @asm-*.jar!/!META-INF/MANIFEST.MF,
                             ]]></bnd>
                         </configuration>
                     </execution>
